@@ -1,0 +1,8 @@
+# Virtualenv folder
+venv/
+
+*.txt
+*.log
+*.csv
+
+*.pyc
