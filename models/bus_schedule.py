@@ -6,3 +6,9 @@ class BusSchedule(object):
 
     def __str__(self):
         return "Route Num: {}, Arriving in: {}".format(self.route_num,self.time_remaining)
+
+    def to_dict(self):
+        return {
+            'route_num': self.route_num,
+            'time_remaining': self.time_remaining
+        }

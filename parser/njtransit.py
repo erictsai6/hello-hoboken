@@ -12,6 +12,8 @@ class NJTransitParser:
         self.show_all_busses = show_all_busses
 
     def get_bus_schedules(self):
+        bus_schedules = []
+
         query_params = {
             'route': self.route_num,
             'id': self.stop_id,
@@ -24,17 +26,17 @@ class NJTransitParser:
             tree = html.fromstring(page.content)
             text_nodes = tree.xpath('//b/text()')
 
-            bus_schedules = []
             for i in range(0, len(text_nodes) / 2):
                 ind = i * 2
                 extracted_route_num = self.extract_route_num(text_nodes[ind])
                 extracted_time_remaining = self.extract_time_remaining(text_nodes[ind+1])
                 bus_schedule = BusSchedule(extracted_route_num, extracted_time_remaining)
-                print bus_schedule
                 bus_schedules.append(bus_schedule)
-
         else:
             print 'Error - NJ Transit failed to return valid status code.  Returned status code:', page.status_code
+
+        return bus_schedules
+
 
     def extract_route_num(self, input):
         match_obj = re.match( r'^#(\d+)', input, re.M|re.I)
