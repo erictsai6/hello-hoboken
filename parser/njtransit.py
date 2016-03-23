@@ -5,17 +5,21 @@ from models.bus_schedule import BusSchedule
 
 class NJTransitParser:
 
-    def __init__(self):
+    def __init__(self, route_num, stop_id, show_all_busses):
         self.url = 'http://mybusnow.njtransit.com/bustime/wireless/html/eta.jsp'
+        self.route_num = route_num
+        self.stop_id = stop_id
+        self.show_all_busses = show_all_busses
 
-    def get_bus_schedules(self, route_num, stop_id, show_all_busses):
+    def get_bus_schedules(self):
         query_params = {
-            'route': route_num,
-            'id': stop_id,
+            'route': self.route_num,
+            'id': self.stop_id,
             'direction': 'New+York',
-            'showAllBusses': show_all_busses
+            'showAllBusses': self.show_all_busses
         }
         page = requests.get(self.url, params=query_params)
+
         if page.status_code == 200:
             tree = html.fromstring(page.content)
             text_nodes = tree.xpath('//b/text()')
@@ -26,8 +30,8 @@ class NJTransitParser:
                 extracted_route_num = self.extract_route_num(text_nodes[ind])
                 extracted_time_remaining = self.extract_time_remaining(text_nodes[ind+1])
                 bus_schedule = BusSchedule(extracted_route_num, extracted_time_remaining)
+                print bus_schedule
                 bus_schedules.append(bus_schedule)
-
 
         else:
             print 'Error - NJ Transit failed to return valid status code.  Returned status code:', page.status_code

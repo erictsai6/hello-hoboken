@@ -5,4 +5,4 @@ class BusSchedule(object):
         self.time_remaining = time_remaining
 
     def __str__(self):
-        return "Route Num: " + self.route_num + ", Arriving in: " + self.time_remaining + " min"
+        return "Route Num: {}, Arriving in: {}".format(self.route_num,self.time_remaining)
