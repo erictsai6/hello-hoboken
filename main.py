@@ -1,6 +1,6 @@
-from parser.njtransit import NJTransitParser
-from workers.njtransit import NJTransitWorker
-from models.bus_schedules import BusSchedules
+from server.parser.njtransit import NJTransitParser
+from server.workers.njtransit import NJTransitWorker
+from server.models.bus_schedules import BusSchedules
 
 from flask import Flask, jsonify
 app = Flask(__name__)
@@ -10,7 +10,6 @@ bus_schedules = BusSchedules()
 @app.route('/api/v1/bus_schedules')
 def api_bus_schedules():
     global bus_schedules
-    print bus_schedules.to_dict()
     return jsonify(bus_schedules.to_dict())
 
 def main():

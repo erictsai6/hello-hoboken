@@ -11,5 +11,5 @@ class NJTransitWorker(threading.Thread):
 
     def run (self):
         while not self.kill_received:
-            time.sleep(60)
             self.bus_schedules.set_bus_schedules(self.njtransit_parser.get_bus_schedules())
+            time.sleep(60)
