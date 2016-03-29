@@ -28,8 +28,8 @@ class NJTransitParser:
 
             for i in range(0, len(text_nodes) / 2):
                 ind = i * 2
-                extracted_route_num = int(self.extract_route_num(text_nodes[ind]))
-                extracted_time_remaining = int(self.extract_time_remaining(text_nodes[ind+1]))
+                extracted_route_num = self.extract_route_num(text_nodes[ind])
+                extracted_time_remaining = self.extract_time_remaining(text_nodes[ind+1])
                 bus_schedule = BusSchedule(extracted_route_num, extracted_time_remaining)
                 bus_schedules.append(bus_schedule)
         else:
@@ -41,11 +41,17 @@ class NJTransitParser:
     def extract_route_num(self, input):
         match_obj = re.match( r'^#(\d+)', input, re.M|re.I)
         if match_obj:
-            return match_obj.group(1)
+            try:
+                return match_obj.group(1)
+            except:
+                return None
         return None
 
     def extract_time_remaining(self, input):
         match_obj = re.match( r'^(\d+).*MIN', input, re.M|re.I)
         if match_obj:
-            return match_obj.group(1)
+            try:
+                return match_obj.group(1)
+            except:
+                return None
         return None

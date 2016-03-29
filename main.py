@@ -2,7 +2,7 @@ from server.parser.njtransit import NJTransitParser
 from server.workers.njtransit import NJTransitWorker
 from server.models.bus_schedules import BusSchedules
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 app = Flask(__name__)
 
 bus_schedules = BusSchedules()
@@ -11,6 +11,10 @@ bus_schedules = BusSchedules()
 def api_bus_schedules():
     global bus_schedules
     return jsonify(bus_schedules.to_dict())
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 def main():
     print ' -- Initializing NJ Transit Parser Process -- '

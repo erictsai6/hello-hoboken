@@ -1,6 +1,10 @@
 # Virtualenv folder
 venv/
 
+node_modules/
+jspm_packages/
+
+
 *.txt
 *.log
 *.csv
