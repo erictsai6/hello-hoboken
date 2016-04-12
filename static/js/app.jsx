@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import HelloWorld from 'js/hello-world.jsx!';
 
-React.render(
+
+ReactDOM.render(
     <HelloWorld phrase="ES6"/>,
-    document.body
+    document.getElementById('container')
 );

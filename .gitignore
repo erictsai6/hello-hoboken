@@ -3,6 +3,7 @@ venv/
 
 node_modules/
 jspm_packages/
+css/
 
 
 *.txt

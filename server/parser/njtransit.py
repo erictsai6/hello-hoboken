@@ -5,10 +5,11 @@ from server.models.bus_schedule import BusSchedule
 
 class NJTransitParser:
 
-    def __init__(self, route_num, stop_id, show_all_busses):
+    def __init__(self, route_num, stop_id, direction, show_all_busses):
         self.url = 'http://mybusnow.njtransit.com/bustime/wireless/html/eta.jsp'
         self.route_num = route_num
         self.stop_id = stop_id
+        self.direction = direction
         self.show_all_busses = show_all_busses
 
     def get_bus_schedules(self):
@@ -17,7 +18,7 @@ class NJTransitParser:
         query_params = {
             'route': self.route_num,
             'id': self.stop_id,
-            'direction': 'New+York',
+            'direction': self.direction,
             'showAllBusses': self.show_all_busses
         }
         page = requests.get(self.url, params=query_params)
