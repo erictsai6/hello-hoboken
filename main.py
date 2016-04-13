@@ -1,6 +1,7 @@
 from server.parser.njtransit import NJTransitParser
 from server.workers.njtransit import NJTransitWorker
 from server.models.bus_schedules import BusSchedules
+import server.constants as c
 
 from flask import Flask, jsonify, render_template
 app = Flask(__name__)
@@ -21,19 +22,9 @@ def main():
 
     global bus_schedules
 
-    # Establishing Constants
-    # TODO - separate into constants.py file
-    route_num = 126    # Route Number
-    stop_id_ny = 20514      # Washington + 13th Street -> New York
-    stop_id_hoboken = 20515  # Washington + 12th Street -> Hoboken
-    show_all_busses = 'on'
-    hide_other_busses = 'off'
-    direction_ny = 'New York'
-    direction_hoboken = 'Hoboken/Jersey C'
-
     # Create 2 parsers, one for NY and one for Hoboken
-    njtransit_parser_ny = NJTransitParser(route_num, stop_id_ny, direction_ny, hide_other_busses)
-    njtransit_parser_hoboken = NJTransitParser(route_num, stop_id_hoboken, direction_hoboken, show_all_busses)
+    njtransit_parser_ny = NJTransitParser(c.route_num, c.stop_id_ny, c.direction_ny, c.hide_other_busses)
+    njtransit_parser_hoboken = NJTransitParser(c.route_num, c.stop_id_hoboken, c.direction_hoboken, c.show_all_busses)
 
     # Create one daemon process to grab all
     njtransit_worker = NJTransitWorker(njtransit_parser_ny, njtransit_parser_hoboken, bus_schedules)

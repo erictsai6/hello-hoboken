@@ -25,13 +25,17 @@ class NJTransitParser:
 
         if page.status_code == 200:
             tree = html.fromstring(page.content)
-            text_nodes = tree.xpath('//b/text()')
+            b_text_nodes = tree.xpath('//b/text()')
+            all_text = tree.text_content()
+            bus_numbers = self.extract_bus_numbers(all_text)
 
-            for i in range(0, len(text_nodes) / 2):
+            for i in range(0, len(b_text_nodes) / 2):
                 ind = i * 2
-                extracted_route_num = self.extract_route_num(text_nodes[ind])
-                extracted_time_remaining = self.extract_time_remaining(text_nodes[ind+1])
-                bus_schedule = BusSchedule(extracted_route_num, extracted_time_remaining)
+                extracted_route_num = self.extract_route_num(b_text_nodes[ind])
+                extracted_time_remaining = self.extract_time_remaining(b_text_nodes[ind+1])
+                extracted_id = bus_numbers[i]
+
+                bus_schedule = BusSchedule(extracted_id, extracted_route_num, extracted_time_remaining)
                 bus_schedules.append(bus_schedule)
         else:
             print 'Error - NJ Transit failed to return valid status code.  Returned status code:', page.status_code
@@ -56,3 +60,10 @@ class NJTransitParser:
             except:
                 return None
         return None
+
+    def extract_bus_numbers(self, input):
+        bus_numbers = []
+        match_iter = re.findall( r'\(Bus (\d+)\)', input, re.M|re.I)
+        for match in match_iter:
+            bus_numbers.append(int(match))
+        return bus_numbers

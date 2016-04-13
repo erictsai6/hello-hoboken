@@ -12,7 +12,7 @@ class HelloWorld extends React.Component {
                             <ul>
                             {
                                 this.state.busSchedulesNy.map(item => {
-                                    return (<li>
+                                    return (<li key={item.id}>
                                         {item.route_num} - {item.time_remaining} minutes
                                     </li>);
                                 })
@@ -24,7 +24,7 @@ class HelloWorld extends React.Component {
                             <ul>
                             {
                                 this.state.busSchedulesHoboken.map(item => {
-                                    return (<li>
+                                    return (<li key={item.id}>
                                         {item.route_num} - {item.time_remaining} minutes
                                     </li>);
                                 })
