@@ -9,3 +9,18 @@ $white01: #f4f4f4;
     text-align: center;
     color: $white01;
 }
+
+.busSchedule-container {
+    text-align: center;
+
+    & > ul {
+        list-style: none;
+    }
+}
+
+/**
+ *  UTILITY CLASSES
+ */
+.u-textAlignCenter {
+    text-align: center;
+}

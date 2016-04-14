@@ -1,32 +1,29 @@
 import React from 'react';
 import 'fetch';
+import BusSchedule from 'js/bus-schedule.jsx!';
 
-class HelloWorld extends React.Component {
+class BusSchedules extends React.Component {
 
     render() {
         if (this.state &&
             typeof this.state.busSchedulesNy !== 'undefined') {
             return  (<div className="row">
-                        <div className="col-xs-6">
+                        <div className="col-xs-6 busSchedule-container">
                             <h3>To New York Port Authority</h3>
                             <ul>
                             {
                                 this.state.busSchedulesNy.map(item => {
-                                    return (<li key={item.id}>
-                                        {item.route_num} - {item.time_remaining} minutes
-                                    </li>);
+                                    return (<BusSchedule key={item.id} item={item}></BusSchedule>);
                                 })
                             }
                             </ul>
                         </div>
-                        <div className="col-xs-6">
+                        <div className="col-xs-6 busSchedule-container">
                             <h3>To Hoboken Path</h3>
                             <ul>
                             {
                                 this.state.busSchedulesHoboken.map(item => {
-                                    return (<li key={item.id}>
-                                        {item.route_num} - {item.time_remaining} minutes
-                                    </li>);
+                                    return (<BusSchedule key={item.id} item={item}></BusSchedule>);
                                 })
                             }
                             </ul>
@@ -51,4 +48,4 @@ class HelloWorld extends React.Component {
     }
 }
 
-export default HelloWorld;
+export default BusSchedules;

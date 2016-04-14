@@ -5,6 +5,7 @@ node_modules/
 jspm_packages/
 css/
 
+constants.py
 
 *.txt
 *.log

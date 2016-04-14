@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import HelloWorld from 'js/hello-world.jsx!';
+import HelloHoboken from 'js/hello-hoboken.jsx!';
 
 
 ReactDOM.render(
-    <HelloWorld phrase="ES6"/>,
+    <HelloHoboken/>,
     document.getElementById('container')
 );
