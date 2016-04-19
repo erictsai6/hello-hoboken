@@ -1,8 +1,10 @@
-$primary-color: #74c5f7;
+$primary-color01: #74c5f7;
 $white01: #f4f4f4;
+$primary-color02: #dae6ed;
+$secondary-color03: #fcbf16;
 
 .navHeaderContainer {
-    background-color: $primary-color;
+    background-color: $primary-color01;
 }
 
 .navHeaderContainer-content {
@@ -18,9 +20,29 @@ $white01: #f4f4f4;
     }
 }
 
+.busSchedule {
+    & > span {
+        padding: 0px 5px;
+    }
+
+    &:nth-child(odd) {
+        background-color: $primary-color02;
+    }
+}
+
+.busSchedule-id {
+
+}
+.busSchedule-route {
+
+}
+.busSchedule-timeRemaining {
+
+}
+.warningState {
+    color: $secondary-color03;
+}
+
 /**
  *  UTILITY CLASSES
  */
-.u-textAlignCenter {
-    text-align: center;
-}

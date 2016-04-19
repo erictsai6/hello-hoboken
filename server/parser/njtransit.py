@@ -58,7 +58,11 @@ class NJTransitParser:
             try:
                 return match_obj.group(1)
             except:
-                return None
+                pass
+        match_obj = re.match( r'^< 1.*MIN', input, re.M|re.I)
+        if match_obj:
+            return "0.5"
+
         return None
 
     def extract_bus_numbers(self, input):
