@@ -41,15 +41,15 @@ class MyTest(unittest.TestCase):
 
             self.assertEquals(r[0].id, 5264)
             self.assertEquals(r[0].route_num, '126')
-            self.assertEquals(r[0].time_remaining, '5')
+            self.assertEquals(r[0].time_remaining, 5)
 
             self.assertEquals(r[1].id, 5857)
             self.assertEquals(r[1].route_num, '89')
-            self.assertEquals(r[1].time_remaining, '9')
+            self.assertEquals(r[1].time_remaining, 9)
 
             self.assertEquals(r[2].id, 5266)
             self.assertEquals(r[2].route_num, '126')
-            self.assertEquals(r[2].time_remaining, '14')
+            self.assertEquals(r[2].time_remaining, 14)
 
 
     def test_get_bus_schedules_less_than_1_min(self):
@@ -60,15 +60,15 @@ class MyTest(unittest.TestCase):
 
             self.assertEquals(r[0].id, 5255)
             self.assertEquals(r[0].route_num, '126')
-            self.assertEquals(r[0].time_remaining, '0.5')
+            self.assertEquals(r[0].time_remaining, 0)
 
             self.assertEquals(r[1].id, 5302)
             self.assertEquals(r[1].route_num, '89')
-            self.assertEquals(r[1].time_remaining, '13')
+            self.assertEquals(r[1].time_remaining, 13)
 
             self.assertEquals(r[2].id, 5272)
             self.assertEquals(r[2].route_num, '126')
-            self.assertEquals(r[2].time_remaining, '20')
+            self.assertEquals(r[2].time_remaining, 20)
 
 
 if __name__ == '__main__':

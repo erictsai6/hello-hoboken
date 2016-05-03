@@ -7,7 +7,7 @@ import BusSchedules from 'js/bus-schedules.jsx!';
 class HelloHoboken extends React.Component {
 
     render() {
-        return (<div>
+        return (<div className="row">
                     <WeatherForecast></WeatherForecast>
                     <BusSchedules></BusSchedules>
                 </div>);

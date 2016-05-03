@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var shell = require('gulp-shell');
 var sass = require('gulp-sass');
+var jspm = require('gulp-jspm');
 
 gulp.task('default', ['build', 'server']);
 
@@ -15,5 +16,12 @@ gulp.task('sass:watch', function () {
 });
 
 gulp.task('server', shell.task([
+    'python tester.py',
     'python main.py'
     ]));
+
+// gulp.task('build', function () {
+//     return gulp.src('jsx/app.jsx!')
+//         .pipe(jspm())
+//         .pipe(gulp.dest('dist/'));
+// });
