@@ -5,9 +5,22 @@ from server.workers.weather_underground import WeatherUndergroundWorker
 from server.models.bus_schedules import BusSchedules
 from server.models.weather_forecast import WeatherForecast
 import server.constants as c
+import os
+
 
 from flask import Flask, jsonify, render_template
-app = Flask(__name__)
+environment = 'development'
+
+static_folder = 'static'
+if 'NJTRANSIT_SETTINGS' in os.environ and 'production' in os.environ['NJTRANSIT_SETTINGS']:
+    environment = 'production'
+    static_folder = 'dist'
+
+app = Flask(__name__, static_folder=static_folder)
+app.config.from_object('settings.default')
+
+if environment == 'production':
+    app.config.from_envvar('NJTRANSIT_SETTINGS')
 
 bus_schedules = BusSchedules()
 weather_forecast = WeatherForecast(c.wu_state, c.wu_city)
@@ -32,7 +45,7 @@ def main():
     global bus_schedules
     global weather_forecast
 
-    # Create 3 parsers, one for NY and one for Hoboken
+    # Create 3 parsers, one for NY and one for Hoboken and one for WeatherUnderground
     njtransit_parser_ny = NJTransitParser(c.route_num, c.stop_id_ny, c.direction_ny, c.hide_other_busses)
     njtransit_parser_hoboken = NJTransitParser(c.route_num, c.stop_id_hoboken, c.direction_hoboken, c.show_all_busses)
     wu_parser = WeatherUndergroundParser(c.wu_api_key, c.wu_state, c.wu_city)
@@ -50,5 +63,7 @@ def main():
 
 
 if __name__ == '__main__':
+    print environment
     main()
+    print 'Started in {} mode'.format(environment) 
     app.run()

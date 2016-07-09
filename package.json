@@ -18,8 +18,12 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-jspm": "^0.5.8",
+    "gulp-clean": "^0.3.2",
+    "gulp-contrib-copy": "^0.1.2",
+    "gulp-jspm": "^0.5.12",
+    "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.2.0",
-    "gulp-shell": "^0.5.2"
+    "gulp-shell": "^0.5.2",
+    "merge-stream": "^1.0.0"
   }
 }

@@ -1,0 +1,3 @@
+DEBUG = False
+PROPAGATE_EXCEPTIONS = False
+STATIC_FOLDER = 'dist'
