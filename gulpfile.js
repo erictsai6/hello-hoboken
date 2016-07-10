@@ -7,9 +7,9 @@ var clean = require('gulp-clean');
 var merge = require('merge-stream');
 var replace = require('gulp-replace');
 
-gulp.task('default', ['reset-env', 'sass', 'server']);
+gulp.task('default', ['sass', 'server:dev']);
 
-gulp.task('serveBuild', ['set-env', 'build', 'server'])
+gulp.task('serveBuild', ['server:production'])
 
 gulp.task('build', [ 
     'sass', 
@@ -30,6 +30,10 @@ gulp.task('sass', function() {
         .pipe(gulp.dest('./static/css'));
 });
 
+gulp.task('jspm:unbundle', shell.task(
+    'jspm unbundle'
+));
+
 gulp.task('clean', function() {
     return gulp.src('dist/', {
             read: false
@@ -39,11 +43,11 @@ gulp.task('clean', function() {
         }));
 });
 
-gulp.task('jspm-bundle', shell.task(
+gulp.task('jspm:bundle', shell.task(
     'jspm bundle js/app.jsx! static/bundles/app.bundle.js --inject'
 ));
 
-gulp.task('copy', ['clean', 'jspm-bundle'], function() {
+gulp.task('copy', ['clean', 'jspm:bundle'], function() {
     return merge([
         gulp.src('static/css/**/*.css')
             .pipe(replace(/\/static\//, '/dist/'))
@@ -66,7 +70,12 @@ gulp.task('sass:watch', function () {
     gulp.watch('./sass/**/*.scss', ['build']);
 });
 
-gulp.task('server', shell.task([
+gulp.task('server:dev', ['reset-env', 'jspm:unbundle'], shell.task([
+    'python tester.py',
+    'python main.py'
+]));
+
+gulp.task('server:production', ['set-env', 'build'], shell.task([
     'python tester.py',
     'python main.py'
     ]));

@@ -7,7 +7,7 @@ css/
 dist/
 static/bundles/
 
-constants.py
+env.conf
 
 *.txt
 *.log
