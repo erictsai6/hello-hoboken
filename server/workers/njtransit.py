@@ -11,6 +11,7 @@ class NJTransitWorker(threading.Thread):
         threading.Thread.__init__(self)
 
     def run (self):
+        print 'run me bro'
         while not self.kill_received:
             self.bus_schedules.set_bus_schedules_ny(self.njtransit_parser_ny.get_bus_schedules())
             self.bus_schedules.set_bus_schedules_hoboken(self.njtransit_parser_hoboken.get_bus_schedules())

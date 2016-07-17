@@ -4,11 +4,12 @@ from server.workers.njtransit import NJTransitWorker
 from server.workers.weather_underground import WeatherUndergroundWorker
 from server.models.bus_schedules import BusSchedules
 from server.models.weather_forecast import WeatherForecast
+from server.utilities.logger import LogFilter
 import server.constants as c
 import os
 
-
 from flask import Flask, jsonify, render_template
+
 environment = 'development'
 
 static_folder = 'static'
@@ -61,9 +62,9 @@ def main():
 
     print ' -- Daemon NJ Transit Parser Process Begun -- '
 
+# Want to trigger the main process outside the context of python main.py
+main()
 
 if __name__ == '__main__':
-    print environment
-    main()
     print 'Started in {} mode'.format(environment) 
     app.run()
