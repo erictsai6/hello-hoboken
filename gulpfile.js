@@ -12,7 +12,6 @@ gulp.task('default', ['sass', 'server:dev']);
 gulp.task('serveBuild', ['server:production'])
 
 gulp.task('build', [ 
-    'sass', 
     'copy'
 ]);
 
@@ -47,7 +46,7 @@ gulp.task('jspm:bundle', shell.task(
     'jspm bundle js/app.jsx! static/bundles/app.bundle.js --inject'
 ));
 
-gulp.task('copy', ['clean', 'jspm:bundle'], function() {
+gulp.task('copy', ['clean', 'sass', 'jspm:bundle'], function() {
     return merge([
         gulp.src('static/css/**/*.css')
             .pipe(replace(/\/static\//, '/dist/'))

@@ -1,7 +1,35 @@
 language: python
+
 python:
-  - "2.7"
-# command to install dependencies
-install: "pip install -r requirements.txt"
-# command to run tests
-script: python tester.py
+- '2.7'
+
+services:
+- docker
+
+env:
+  global:
+  - secure: ObcFh7jK4rENrIOpgIip96S0Yae0ShcTUr12Q/Lr7DIEif0CBzTK7AwpTlMRHdMvkmC+8ooCBZA9Cgt1VNWgtkENEa8JwuCrjRgQ0jrzyUTd/VptCT44dSsyWQc3yZLsyhtvmg8K+n5GKjeDXBV1GTOyu7oJAW9OvCM7q/t6Pxd9KPQ/ybYjBF5NKsM09UPbw2S+FjwN0bRGuyBdfe/kMS82SNfZEzPRng96o9+Z7+mrXiy5ZagVPst+0QL9vja7P9FwIAtjzipnmY21j6utT3TfR590Th0sQvlFtQNFW+PSoLS9R6EkoXZ23SQVm82sek6w2HuFpbgK23gAjNMHh3mnuhqwXGC4hqXYlC5HwcYoBCOD1CkVEqA9nPNtzOKrQGOFiJWFx7HvjF/goFlwNYT5Bs1RlnudRUkh5C01A+HELiPr5ANVesELPD8GdOScF5vC1Jle5PnDQA60uH4c42nJ9X1FSSnHh9zeNO3oX02mqh8pZaHXP5nmkI7BTCGgJO322HHjMLo0xwmIieHAXLTxHH/2BJls04vyuiunfhQIEO3oJ8JQ0ndsnhfXf0DfKp4qLGemlhcpXUpfmKPYO2ZQjlPP9AsXdr36LnwApHVPJgRj+FyB0So841XLOBtmhxnkMfxIMhuWz5CM7qxc5oLKmnTCVJnWkXF3TRh5AQc=
+  - secure: ExHSq6zpEujpzN4DZY18OwJJqo8myIVNbRogCbmcV0LDOkDnicbqFVr7rRDYSXKjdg02V3KsEMptLsEaBDiq9ibUIQ96YzZNERy0J8SYWxyCk+j813vFmGiI0rxWFuqCO5Uw5zZmFGaKRACIEYCLPlqFMqhdm1LjtA6ZXtyAiGpHO2zzo+jbEMzN3/6Qsr2c/CYXxdvEV+ZXjecjL//ZlNAtWYV012ooN3nkjeaaur6bgaI31NlYVNAVdYWZJN3b30SCKX35wRU06fxEO4tSZkXCwLG6IcVSlOxMiH7pY018XUhUNCYaCN+TaYx+uq6U/BhnI3AuAyR1O8h1XbtThVdKEy4tIUAQ6OVvQ14v9l0lPdwNESBX3sKIWktXY2iszuK3KnVbVW8aLyylf16JSXmDr18XTTBeeSTJT7iMuJq16CvHy9Ohh7CBl2gweURSkSVMmFyH953v9VQzAUJwtFmpu1Gsz30S2Gw0fvm00yv0tccaxSiMDYXqzOazrlkuFxHvYvle3jEAqH5S1SFXOLNid9plDas2MKx8ykiEMnrcTO2fRO/4797NfcXe+JNlDj6ylUF3272do0jRGuqK3InpqZXwxgdGeptR4zSwafaQQ2pLon3Q4H7NcD6WsS5TQeBQMyT0X8vD7jPlx2isQQka+4GFIa+VltqRGoIHy+k=
+  - secure: Pex8J0vEa7V7LfW+iYhz3RKLdstDU0rYR8r2Px0NJZ+0Eid8XocDSN7x4M1uATqrZmOZDfwihTU4CvGxFR+LoJQPuGYMHwGI2h0She0ZzfIelqfBmPQjsfwq+TuPsItPnMjiYGdUi07oD3/29lJtspyzUoot0/5O1X6a4Op7z6Tzav0MVYmgygLq1dedMEMQvymzzTMbrLBIZwsvpWgoaEKA190KWbp5WATYIFD81HY5865Tf+w6kKHQYh9YvzEE30YuCt9sjoQNHVWh049AFN+jJaeNCsoYpNMI0gRzj/9lszTdeovBtN2ciIL3jBN1B96aaoPHHiehRJpetayFemCcsGh/TCHqrL23o0VKuplb+b8hvSRuk/jJlbBH/uSYLZrdAhBVB9qiZb5+y7p57luhUu3ARS+M8trGbIuvp9XGOlC4Hz6w4N0/9jo28/B4Te39GduUOfTpG5VProwVhWPndJkbzikMVpfO2jbH62OQfiyVJZtXDKl8bVl5T6vTXou0/Z3CsnLkOZdm5SoZOL9THi/KRm4OKQCeEGwts4+g0S+Q32wjhgpNhrXSjdvqQZieOhGVPQ4bEMUqZoxgmZ3qwkAxEMEPqXuHAtZ+xe1ZvktXwiIIaNahdwMZxEaO8ATYagUASaAMjGRnEtm4nEmksRFpBgmD1csVZRhlA2k=
+
+install: pip install -r requirements.txt
+
+before_script:
+- npm install -g gulp
+- npm install -g jspm
+- gem install sass
+- npm install
+- jspm install
+
+script:
+- python tester.py
+- gulp build
+
+after_success:
+- docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+- export REPO=erictsai6/hello-hoboken
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+- docker build -f Dockerfile -t $REPO:$COMMIT .
+- docker tag $REPO:$COMMIT $REPO:$TAG
+- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+- docker push $REPO
