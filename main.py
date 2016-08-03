@@ -38,7 +38,8 @@ def api_weather_forecast():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    global environment
+    return render_template('index.html', environment=environment)
 
 def main():
     print ' -- Initializing NJ Transit Parser Process -- '

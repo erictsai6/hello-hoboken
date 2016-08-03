@@ -12,6 +12,9 @@
     </div>
     <script src="{{ url_for('static', filename='jspm_packages/system.js')}}"></script>
     <script src={{ url_for('static', filename='config.js') }}></script>
+    {% if environment == 'production' %}
+        <script src={{ url_for('static', filename='bundles/app.bundle.js') }}></script>
+    {% endif %}
     <script>
         System.import("{{ url_for('static', filename='js/app.jsx') }}!");            
     </script>

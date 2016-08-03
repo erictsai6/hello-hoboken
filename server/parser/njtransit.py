@@ -67,7 +67,7 @@ class NJTransitParser:
 
     def extract_bus_numbers(self, input):
         bus_numbers = []
-        match_iter = re.findall( r'\(Bus (\d+)\)', input, re.M|re.I)
+        match_iter = re.findall( r'\(\w+ (\d+)\)', input, re.M|re.I)
         for match in match_iter:
             bus_numbers.append(int(match))
         return bus_numbers

@@ -43,7 +43,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('jspm:bundle', shell.task(
-    'jspm bundle js/app.jsx! static/bundles/app.bundle.js --inject'
+    'jspm bundle js/app.jsx! static/bundles/app.bundle.js'
 ));
 
 gulp.task('copy', ['clean', 'sass', 'jspm:bundle'], function() {
