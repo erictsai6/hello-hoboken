@@ -7,13 +7,9 @@ var clean = require('gulp-clean');
 var merge = require('merge-stream');
 var replace = require('gulp-replace');
 
-gulp.task('default', ['sass', 'server:dev']);
+gulp.task('default', ['sass', 'server:dev', 'watch']);
 
 gulp.task('serveBuild', ['server:production'])
-
-gulp.task('build', [ 
-    'copy'
-]);
 
 gulp.task('reset-env', function() {
     delete process.env.NJTRANSIT_SETTINGS;
@@ -29,9 +25,9 @@ gulp.task('sass', function() {
         .pipe(gulp.dest('./static/css'));
 });
 
-gulp.task('jspm:unbundle', shell.task(
-    'jspm unbundle'
-));
+gulp.task('build', ['sass'], shell.task([
+    './node_modules/.bin/webpack -d'
+]));
 
 gulp.task('clean', function() {
     return gulp.src('dist/', {
@@ -42,39 +38,33 @@ gulp.task('clean', function() {
         }));
 });
 
-gulp.task('jspm:bundle', shell.task(
-    'jspm bundle js/app.jsx! static/bundles/app.bundle.js'
-));
-
-gulp.task('copy', ['clean', 'sass', 'jspm:bundle'], function() {
+gulp.task('copy', ['clean', 'build'], function() {
     return merge([
         gulp.src('static/css/**/*.css')
             .pipe(replace(/\/static\//, '/dist/'))
             .pipe(gulp.dest('dist/css')),
         gulp.src('static/img/**')
             .pipe(gulp.dest('dist/img')),
-        gulp.src('static/jspm_packages/**')
-            .pipe(gulp.dest('dist/jspm_packages')),
-        gulp.src(['static/**/*.ico', 'static/*.js', '!static/config.js'])
-            .pipe(gulp.dest('dist')),
-        gulp.src('static/config.js')
-            .pipe(replace(/baseURL: "\/static"/, 'baseURL: "/dist"'))
+        gulp.src(['static/**/*.ico', 'static/*.js'])
             .pipe(gulp.dest('dist')),
         gulp.src('static/bundles/*.js')
             .pipe(gulp.dest('dist/bundles'))
     ]);
 });
 
-gulp.task('sass:watch', function () {
+gulp.task('ci', ['copy']);
+
+gulp.task('watch', function () {
     gulp.watch('./sass/**/*.scss', ['build']);
+    gulp.watch('./js/**/*.jsx', ['build']);
 });
 
-gulp.task('server:dev', ['reset-env', 'jspm:unbundle'], shell.task([
+gulp.task('server:dev', ['reset-env', 'build'], shell.task([
     'python tester.py',
     'python main.py'
 ]));
 
-gulp.task('server:production', ['set-env', 'build'], shell.task([
+gulp.task('server:production', ['set-env', 'copy'], shell.task([
     'python tester.py',
     'python main.py'
     ]));

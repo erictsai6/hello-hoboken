@@ -2,7 +2,6 @@
 <head>
     <title>Hello Hoboken</title>
     <link rel="icon" href="{{ url_for('static', filename='h-favicon.ico') }}" type="image/x-icon" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='jspm_packages/github/twbs/bootstrap@3.3.6/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
@@ -10,13 +9,6 @@
     <div id="container" class="container-fluid">
 
     </div>
-    <script src="{{ url_for('static', filename='jspm_packages/system.js')}}"></script>
-    <script src={{ url_for('static', filename='config.js') }}></script>
-    {% if environment == 'production' %}
-        <script src={{ url_for('static', filename='bundles/app.bundle.js') }}></script>
-    {% endif %}
-    <script>
-        System.import("{{ url_for('static', filename='js/app.jsx') }}!");            
-    </script>
+    <script src="{{ url_for('static', filename='bundles/bundle.js')}}"></script>
 </body>
 </html>

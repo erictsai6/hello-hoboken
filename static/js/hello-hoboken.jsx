@@ -1,8 +1,7 @@
 import React from 'react';
-import 'fetch';
 
-import WeatherForecast from 'js/weather-forecast.jsx!';
-import BusSchedules from 'js/bus-schedules.jsx!';
+import WeatherForecast from './weather-forecast.jsx';
+import BusSchedules from './bus-schedules.jsx';
 
 class HelloHoboken extends React.Component {
 
