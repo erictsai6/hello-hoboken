@@ -11,5 +11,9 @@ class WeatherUndergroundWorker(threading.Thread):
 
     def run (self):
         while not self.kill_received:
-            self.weather_forecast.set_data(self.weather_underground_parser.get_weather_forecast())
-            time.sleep(1800)
+            try: 
+                self.weather_forecast.set_data(self.weather_underground_parser.get_weather_forecast())
+                time.sleep(1800)
+            except Exception, e:
+                print 'Failed to grab bus schedules', e
+

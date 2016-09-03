@@ -53,15 +53,20 @@ class NJTransitParser:
         return None
 
     def extract_time_remaining(self, input):
+        match_obj = re.match( r'^&lt;.*1.*MIN', input, re.M|re.I)
+        if match_obj:
+            return "0.5"
+
+        match_obj = re.match( r'^<.*1.*MIN', input, re.M|re.I)
+        if match_obj:
+            return "0.5"
+
         match_obj = re.match( r'^(\d+).*MIN', input, re.M|re.I)
         if match_obj:
             try:
                 return match_obj.group(1)
             except:
                 pass
-        match_obj = re.match( r'^< 1.*MIN', input, re.M|re.I)
-        if match_obj:
-            return "0.5"
 
         return None
 

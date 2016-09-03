@@ -14,13 +14,13 @@ class WeatherForecast extends React.Component {
     render() {
 
         var hourlyForecasts = [];
-
         for (var i = 0; i < Math.min(this.state.weatherForecast.hourly_forecast.length, 12); i++) {
 
             var item = this.state.weatherForecast.hourly_forecast[i];
-            hourlyForecasts.push(<div key={item.FCTTIME.epoch} className="col-xs-2 col-sm-1">
+            hourlyForecasts.push(<div key={item.FCTTIME.epoch} className="col-xs-4 col-sm-2">
                 <img src={item.icon_url} alt={item.icon}/>
-                <span>{item.temp.english}</span></div>)
+                <div>{item.FCTTIME.civil}</div>
+                <div>{item.temp.english}&deg;</div></div>)
         }
 
         return  (<div className="jumbotron-hero">

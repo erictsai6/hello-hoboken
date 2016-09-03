@@ -12,7 +12,7 @@ class BusSchedules extends React.Component {
     }
     render() {
         return  (<div className="row">
-                    <div className="col-xs-6 busSchedule-container">
+                    <div className="col-sm-6 busSchedule-container">
                         <h3>To New York Port Authority</h3>
                         <ul>
                         {
@@ -22,7 +22,7 @@ class BusSchedules extends React.Component {
                         }
                         </ul>
                     </div>
-                    <div className="col-xs-6 busSchedule-container">
+                    <div className="col-sm-6 busSchedule-container">
                         <h3>To Hoboken Path</h3>
                         <ul>
                         {

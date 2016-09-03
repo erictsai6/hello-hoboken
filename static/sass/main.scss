@@ -3,6 +3,29 @@ $white01: #fcfcfc;
 $primary-color02: #dae6ed;
 $secondary-color03: #fcbf16;
 
+.navigation {
+    height: 50px;
+    background-color: $primary-color02;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+.navigation--link {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    min-width: 50%;
+    text-align: center;
+}
+
+.container--child {
+    padding-top: 50px;
+}
 
 .jumbotron-hero {
     position: relative;

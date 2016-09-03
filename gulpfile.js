@@ -7,7 +7,7 @@ var clean = require('gulp-clean');
 var merge = require('merge-stream');
 var replace = require('gulp-replace');
 
-gulp.task('default', ['sass', 'server:dev', 'watch']);
+gulp.task('default', ['sass', 'server:dev']);
 
 gulp.task('serveBuild', ['server:production'])
 
@@ -59,7 +59,7 @@ gulp.task('watch', function () {
     gulp.watch('./js/**/*.jsx', ['build']);
 });
 
-gulp.task('server:dev', ['reset-env', 'build'], shell.task([
+gulp.task('server:dev', ['reset-env', 'build', 'watch'], shell.task([
     'python tester.py',
     'python main.py'
 ]));
