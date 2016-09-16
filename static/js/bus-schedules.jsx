@@ -11,28 +11,27 @@ class BusSchedules extends React.Component {
         };
     }
     render() {
-        return  (<div className="row">
+        return  (<div>
                     <div className="col-sm-6 busSchedule-container">
-                        <h3>To New York Port Authority</h3>
-                        <ul>
-                        {
-                            this.state.busSchedulesNy.map(item => {
-                                return (<BusSchedule key={item.id} item={item}></BusSchedule>);
-                            })
-                        }
-                        </ul>
-                    </div>
-                    <div className="col-sm-6 busSchedule-container">
-                        <h3>To Hoboken Path</h3>
-                        <ul>
-                        {
-                            this.state.busSchedulesHoboken.map(item => {
-                                return (<BusSchedule key={item.id} item={item}></BusSchedule>);
-                            })
-                        }
-                        </ul>
-                    </div>
-                </div>);        
+                    <h3>To New York Port Authority</h3>
+                    <ul>
+                    {
+                        this.state.busSchedulesNy.map(item => {
+                            return (<BusSchedule key={item.id} item={item}></BusSchedule>);
+                        })
+                    }
+                    </ul>
+                </div>
+                <div className="col-sm-6 busSchedule-container">
+                    <h3>To Hoboken Path</h3>
+                    <ul>
+                    {
+                        this.state.busSchedulesHoboken.map(item => {
+                            return (<BusSchedule key={item.id} item={item}></BusSchedule>);
+                        })
+                    }
+                    </ul>
+                </div></div>);        
     }
 
     // API call to

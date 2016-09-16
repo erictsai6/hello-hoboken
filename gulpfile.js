@@ -7,7 +7,7 @@ var clean = require('gulp-clean');
 var merge = require('merge-stream');
 var replace = require('gulp-replace');
 
-gulp.task('default', ['sass', 'server:dev']);
+gulp.task('default', ['sass', 'server:dev', 'watch']);
 
 gulp.task('serveBuild', ['server:production'])
 
@@ -55,11 +55,13 @@ gulp.task('copy', ['clean', 'build'], function() {
 gulp.task('ci', ['copy']);
 
 gulp.task('watch', function () {
-    gulp.watch('./sass/**/*.scss', ['build']);
-    gulp.watch('./js/**/*.jsx', ['build']);
+    gulp.watch('static/sass/**/*.scss', ['sass']);
+    gulp.watch('static/js/**/*.jsx', ['build']);
 });
 
-gulp.task('server:dev', ['reset-env', 'build', 'watch'], shell.task([
+
+
+gulp.task('server:dev', ['reset-env', 'build'], shell.task([
     'python tester.py',
     'python main.py'
 ]));
