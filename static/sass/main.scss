@@ -20,7 +20,7 @@ $secondary-color03: #fcbf16;
 .navigation--link {
     padding-top: 15px;
     padding-bottom: 15px;
-    min-width: 50%;
+    min-width: 33%;
     text-align: center;
 }
 
@@ -38,6 +38,29 @@ $secondary-color03: #fcbf16;
     background-position: 0;
 }
 
+.about-page {
+    background-image: url('/static/img/hoboken_soccer.jpg');
+    width: calc(100% + 30px);
+    height: 100%;
+    padding: 0px;
+    margin: 0px -15px;
+    background-repeat: no-repeat;
+    background-position: 0;
+    position: relative;
+}
+
+.about-container {
+    position: absolute;
+    max-width: 700px;
+    background-color: $white01;
+    opacity: 0.9;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    padding: 25px;
+    transform: translate(-50%,-50%);    
+}
+
 .weatherForecast-container {
     margin-top: 30px;
     top: 40px;
@@ -48,7 +71,7 @@ $secondary-color03: #fcbf16;
 .hourlyForecast {
     position: relative;
     background-color: $white01;
-    opacity: 0.85;
+    opacity: 0.9;
     min-width: 115px;
     min-height: 175px;
     padding: 10px;
@@ -108,6 +131,10 @@ $secondary-color03: #fcbf16;
  */
 .center {
     text-align: center;
+}
+
+.active {
+    background-color: darken($primary-color02, 20%);
 }
 
 .card-label {

@@ -22,6 +22,7 @@ class WeatherForecast extends React.Component {
                     <img className="hourlyForecast-icon" src={item.icon_url} alt={item.icon}/>
                     <div><span className="card-label">Temp:</span> {item.temp.english}&deg;F</div>
                     <div><span className="card-label">Feels like:</span> {item.feelslike.english}&deg;F</div>
+                    <div><span className="card-label">Humidity:</span> {item.humidity}%</div>
                     <div className="hourlyForecast-condition">{item.condition}</div>
                 </div>)
         }

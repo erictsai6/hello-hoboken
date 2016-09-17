@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import HelloHoboken from './hello-hoboken.jsx';
 import About from './about.jsx';
+import Game from './game.jsx';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
-import { Router, Route, IndexRoute, Link, hashHistory, History } from 'react-router'
+import { Router, Route, IndexRoute, Link, IndexRedirect, hashHistory, History } from 'react-router'
 
 const App = React.createClass({
 
@@ -11,7 +12,8 @@ const App = React.createClass({
     return (
       <div>
         <nav className="navigation">
-          <Link className="navigation--link" activeClassName="active" to="/">Home</Link>
+          <Link className="navigation--link" activeClassName="active" to="/home">Home</Link>
+          <Link className="navigation--link" activeClassName="active" to="/game">Game</Link>
           <Link className="navigation--link" activeClassName="active" to="/about">About</Link>
         </nav>
         <div className="container--child">
@@ -23,10 +25,12 @@ const App = React.createClass({
 })
 
 ReactDOM.render(
-    <Router>
+    <Router history={hashHistory}>
         <Route path="/" component={App}>
-            <IndexRoute component={HelloHoboken} />
-            <Route path="about" component={About} />
+            <IndexRedirect to="/home" />
+            <Route path="home" component={HelloHoboken} />
+            <Route path="game" component={Game} />
+            <Route path="about" component={About} />        
         </Route>
     </Router>,
     document.getElementById('container')
