@@ -41,7 +41,7 @@ gulp.task('clean', function() {
 gulp.task('copy', ['clean', 'build'], function() {
     return merge([
         gulp.src('static/css/**/*.css')
-            .pipe(replace(/\/static\//, '/dist/'))
+            .pipe(replace(/\/static\//g, '/dist/'))
             .pipe(gulp.dest('dist/css')),
         gulp.src('static/img/**')
             .pipe(gulp.dest('dist/img')),
