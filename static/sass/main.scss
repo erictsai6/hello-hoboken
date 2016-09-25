@@ -4,6 +4,19 @@ $grey01: #939393;
 $primary-color02: #dae6ed;
 $secondary-color03: #fcbf16;
 
+$color-cell-0: #CEC0B1;
+$color-cell-2: #EEE4DA;
+$color-cell-4: #EDE0C8;
+$color-cell-8: #F2B179;
+$color-cell-16: #F59563;
+$color-cell-32: #F67C5F;
+$color-cell-64: #F65F3C;
+$color-cell-128: #F0D26A;
+$color-cell-256: #F0CF56;
+$color-cell-512: #F1CB41;
+$color-cell-1024: #EDC53F;
+$color-cell-2048: #F2C500;
+
 .navigation {
     height: 50px;
     background-color: $primary-color02;
@@ -124,6 +137,71 @@ $secondary-color03: #fcbf16;
 }
 .warningState {
     color: $secondary-color03;
+}
+
+.board {
+    height: 340px;
+    width: 340px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cell {
+    background-color: blue;
+    width: 75px;
+    height: 75px;
+    margin: 4px;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 20px;
+
+    &.empty {
+        background-color: $color-cell-0;  
+    }
+
+    &.two {
+        background-color: $color-cell-2;
+    }
+
+    &.four {
+        background-color: $color-cell-4;
+    }
+
+    &.eight {
+        background-color: $color-cell-8;
+    }
+
+    &.sixteen {
+        background-color: $color-cell-16;
+    }
+
+    &.thirtytwo {
+        background-color: $color-cell-32;
+    }
+
+    &.sixtyfour {
+        background-color: $color-cell-64;
+    }
+
+    &.onetwentyeight {
+        background-color: $color-cell-128;
+    }
+
+    &.twofiftysix {
+        background-color: $color-cell-256;
+    }
+
+    &.fivetwelve {
+        background-color: $color-cell-512;
+    }
+
+    &.tentwentyfour {
+        background-color: $color-cell-1024;
+    }
+
+    &.twentyfortyeight {
+        background-color: $color-cell-2048;
+    }
 }
 
 /**
