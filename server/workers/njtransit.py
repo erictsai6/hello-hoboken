@@ -3,9 +3,9 @@ import time
 
 class NJTransitWorker(threading.Thread):
 
-    def __init__(self, njtransit_parser_ny, njtransit_parser_hoboken, bus_schedules):
-        self.njtransit_parser_ny = njtransit_parser_ny
-        self.njtransit_parser_hoboken = njtransit_parser_hoboken
+    def __init__(self, njtransit_ny_parsers, njtransit_hoboken_parsers, bus_schedules):
+        self.njtransit_ny_parsers = njtransit_ny_parsers
+        self.njtransit_hoboken_parsers = njtransit_hoboken_parsers
         self.bus_schedules = bus_schedules
         self.kill_received = False
         threading.Thread.__init__(self)
@@ -13,8 +13,12 @@ class NJTransitWorker(threading.Thread):
     def run (self):
         while not self.kill_received:
             try:
-                self.bus_schedules.set_bus_schedules_ny(self.njtransit_parser_ny.get_bus_schedules())
-                self.bus_schedules.set_bus_schedules_hoboken(self.njtransit_parser_hoboken.get_bus_schedules())
+                for parser in self.njtransit_ny_parsers:
+                    self.bus_schedules.set_bus_schedules_ny(parser.stop_id, parser.get_bus_schedules())
+
+                for parser in self.njtransit_hoboken_parsers:
+                    self.bus_schedules.set_bus_schedules_hoboken(parser.stop_id, parser.get_bus_schedules())
+
                 time.sleep(15)
             except Exception, e:
                 print 'Failed to grab bus schedules', e

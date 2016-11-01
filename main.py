@@ -5,10 +5,11 @@ from server.workers.weather_underground import WeatherUndergroundWorker
 from server.models.bus_schedules import BusSchedules
 from server.models.weather_forecast import WeatherForecast
 from server.utilities.logger import LogFilter
+from server.utilities.geo import Geo
 import server.constants as c
 import os
 
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 
 environment = 'development'
 
@@ -28,8 +29,60 @@ weather_forecast = WeatherForecast(c.wu_state, c.wu_city)
 
 @app.route('/api/v1/bus_schedules')
 def api_bus_schedules():
+    ny_bus_stop = str(request.args.get('ny_bus_stop'))
+    hoboken_bus_stop = str(request.args.get('hoboken_bus_stop'))
+
     global bus_schedules
-    return jsonify(bus_schedules.to_dict())
+
+    all_bus_schedules = bus_schedules.to_dict()
+
+    ny_bus_schedules = all_bus_schedules['ny_bus_schedules'][ny_bus_stop] \
+        if ny_bus_stop in all_bus_schedules['ny_bus_schedules'] else []                    
+    hoboken_bus_schedules = all_bus_schedules['hoboken_bus_schedules'][hoboken_bus_stop] \
+        if hoboken_bus_stop in all_bus_schedules['hoboken_bus_schedules'] else []
+
+    return jsonify({
+        'ny_bus_schedules': ny_bus_schedules,
+        'hoboken_bus_schedules': hoboken_bus_schedules
+    })
+
+@app.route('/api/v1/bus_stops')
+def api_bus_stops():
+    return jsonify({
+        'ny_bus_stops': c.stop_id_map_ny,
+        'hoboken_bus_stops': c.stop_id_map_hoboken
+    })
+
+@app.route('/api/v1/bus_stops/nearby')
+def api_bus_stops_nearby():
+    latitude = float(request.args.get('latitude'))
+    longitude = float(request.args.get('longitude'))
+
+    nearest_distance = 10000
+    nearest_ny_bus_stop = None    
+    nearest_hoboken_bus_stop = None
+
+    # Iterate through NY directions stops
+    for ny_bus_stop in c.stop_id_map_ny:
+        distance_from = Geo.distance_from(latitude, longitude,  
+            ny_bus_stop['latitude'], ny_bus_stop['longitude'])
+        if distance_from < nearest_distance:
+            nearest_distance = distance_from
+            nearest_ny_bus_stop = ny_bus_stop                    
+
+    nearest_distance = 10000
+    # Iterate through Hoboken direction stops
+    for hoboken_bus_stop in c.stop_id_map_hoboken:
+        distance_from = Geo.distance_from(latitude, longitude,  
+            hoboken_bus_stop['latitude'], hoboken_bus_stop['longitude'])
+        if distance_from < nearest_distance:
+            nearest_distance = distance_from
+            nearest_hoboken_bus_stop = hoboken_bus_stop 
+
+    return jsonify({
+        'ny_bus_stop': nearest_ny_bus_stop,
+        'hoboken_bus_stop': nearest_hoboken_bus_stop
+    })
 
 @app.route('/api/v1/weather_forecast')
 def api_weather_forecast():
@@ -48,12 +101,19 @@ def main():
     global weather_forecast
 
     # Create 3 parsers, one for NY and one for Hoboken and one for WeatherUnderground
-    njtransit_parser_ny = NJTransitParser(c.route_num, c.stop_id_ny, c.direction_ny, c.hide_other_busses)
-    njtransit_parser_hoboken = NJTransitParser(c.route_num, c.stop_id_hoboken, c.direction_hoboken, c.show_all_busses)
+    njtransit_ny_parsers = []
+    njtransit_hoboken_parsers = []
+
+    for bus_stop in c.stop_id_map_ny:
+        njtransit_ny_parsers.append(NJTransitParser(c.route_num, bus_stop['id'], c.direction_ny, bus_stop['show_all']))
+
+    for bus_stop in c.stop_id_map_hoboken:
+        njtransit_hoboken_parsers.append(NJTransitParser(c.route_num, bus_stop['id'], c.direction_ny, bus_stop['show_all']))
+
     wu_parser = WeatherUndergroundParser(c.wu_api_key, c.wu_state, c.wu_city)
 
     # Start up both njtransit and weather underground workers
-    njtransit_worker = NJTransitWorker(njtransit_parser_ny, njtransit_parser_hoboken, bus_schedules)
+    njtransit_worker = NJTransitWorker(njtransit_ny_parsers, njtransit_hoboken_parsers, bus_schedules)
     njtransit_worker.daemon = True
     njtransit_worker.start()
 
