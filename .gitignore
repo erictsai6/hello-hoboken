@@ -1,4 +1,4 @@
-# Virtualenv folder
+### Virtualenv ###
 venv/
 
 node_modules/
@@ -14,3 +14,7 @@ env.conf
 *.csv
 
 *.pyc
+
+##### SSL Certificate ####
+*.crt
+*.key
