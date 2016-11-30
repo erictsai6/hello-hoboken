@@ -18,3 +18,5 @@ env.conf
 ##### SSL Certificate ####
 *.crt
 *.key
+*.pem
+*.cnf

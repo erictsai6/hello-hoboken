@@ -119,7 +119,11 @@ def alexa():
 
     speak_text = 'No busses are scheduled to ' + direction + ' at this time'
     if len(to_bus_schedules) > 0:
-        speak_text = 'The next bus to ' + direction + ' is in ' + str(to_bus_schedules[0]['time_remaining']) + ' minutes'
+        speak_text = 'The next bus to ' + direction + ' is in ' + str(to_bus_schedules[0]['time_remaining']) + ' minutes.'
+        if len(to_bus_schedules) > 1:
+            speak_text += ' The next busses are: '
+        for i in range(1, len(to_bus_schedules)):
+            speak_text += str(to_bus_schedules[i]['time_remaining']) + ' minutes away. ' 
 
     return jsonify({
         'version': body['version'],        
