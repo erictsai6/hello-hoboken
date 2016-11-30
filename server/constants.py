@@ -13,6 +13,8 @@ wu_api_key = os.environ['WU_API_KEY']
 wu_state = 'NJ'
 wu_city = 'Hoboken'
 
+alexa_app_id = os.environ['ALEXA_APP_ID']
+
 stop_id_map_ny = [
     {  
         'id': 20496,

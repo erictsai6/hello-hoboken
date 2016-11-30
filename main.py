@@ -89,6 +89,48 @@ def api_weather_forecast():
     global weather_forecast
     return jsonify(weather_forecast.to_dict())
 
+@app.route('/api/v1/alexa', methods=['POST'])
+def alexa():
+    body = request.get_json() 
+
+    if body['session']['application']['applicationId'] != c.alexa_app_id:
+        return '', 403
+
+    if body['request']['type'] != 'IntentRequest':
+        return '', 422
+
+    # default should be new york    
+    direction = 'new york'
+    direction_key = 'ny_bus_schedules'
+    bus_stop = '20514'
+    intent = body['request']['intent']['slots']['Direction']
+    if 'value' in intent and \
+        intent['value'].lower() == 'hoboken':
+        direction = 'hoboken'
+        direction_key = 'hoboken_bus_schedules'
+        bus_stop = '20515' 
+
+    global bus_schedules
+
+    all_bus_schedules = bus_schedules.to_dict()
+
+    to_bus_schedules = all_bus_schedules[direction_key][bus_stop] \
+        if bus_stop in all_bus_schedules[direction_key] else []
+
+    speak_text = 'No busses are scheduled to ' + direction + ' at this time'
+    if len(to_bus_schedules) > 0:
+        speak_text = 'The next bus to ' + direction + ' is in ' + str(to_bus_schedules[0]['time_remaining']) + ' minutes'
+
+    return jsonify({
+        'version': body['version'],        
+        'response': {
+            'outputSpeech': {
+                'type': 'PlainText',
+                'text': speak_text
+            }                       
+        }
+    })
+
 @app.route('/')
 def index():
     global environment
