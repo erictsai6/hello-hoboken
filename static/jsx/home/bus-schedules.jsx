@@ -2,15 +2,23 @@ import React from 'react';
 import $ from "jquery";
 import BusSchedule from './bus-schedule.jsx';
 
+let DEFAULT_NY_BUS_STOP = 20514;
+let DEFAULT_HOBOKEN_BUS_STOP = 20515;
+
 class BusSchedules extends React.Component {
     constructor() {
         super();
+
+        // Initializes the previous state
+        let nyBusStop = localStorage.getItem('nyBusStop') ? JSON.parse(localStorage.getItem('nyBusStop')) : DEFAULT_NY_BUS_STOP,
+            hobokenBusStop = localStorage.getItem('hobokenBusStop') ? JSON.parse(localStorage.getItem('hobokenBusStop')) : DEFAULT_HOBOKEN_BUS_STOP;
+
         this.handleHobokenChange = this.handleHobokenChange.bind(this);
         this.handleNyChange = this.handleNyChange.bind(this);
         this.geolocate = this.geolocate.bind(this);
         this.state = {
-            busStopNy: 20514,
-            busStopHoboken: 20515,
+            busStopNy: nyBusStop,
+            busStopHoboken: hobokenBusStop,
             busStopsNy: [
                 {
                     id: 20514,
@@ -30,7 +38,7 @@ class BusSchedules extends React.Component {
     render() {
         return  (<div>
                     <div className="col-xs-12 autogeolocate">
-                        <button onClick={this.geolocate}>
+                        <button className="btn btn-default" onClick={this.geolocate}>
                             Geolocate
                         </button>
                     </div>
@@ -76,12 +84,21 @@ class BusSchedules extends React.Component {
     componentDidMount() {
         this.retrieveBusStops();
         this.retrieveBusSchedules();
+        this.polling = setInterval(() => {
+            this.retrieveBusSchedules();
+        }, 10000);
     }
 
-    retrieveBusSchedules() {
+    componentWillUnmount() {
+        clearInterval(this.polling);
+    }
+
+    retrieveBusSchedules(busStopNy, busStopHoboken) {
+        busStopNy = busStopNy || this.state.busStopNy;
+        busStopHoboken = busStopHoboken || this.state.busStopHoboken;
         $.getJSON('/api/v1/bus_schedules', {
-            ny_bus_stop: this.state.busStopNy,
-            hoboken_bus_stop: this.state.busStopHoboken
+            ny_bus_stop: busStopNy,
+            hoboken_bus_stop: busStopHoboken
         })
             .then(data => {
                 this.setState({
@@ -103,12 +120,14 @@ class BusSchedules extends React.Component {
 
     handleNyChange(event) {
         this.setState({busStopNy: event.target.value});
-        this.retrieveBusSchedules();
+        localStorage.setItem('nyBusStop', JSON.stringify(event.target.value));
+        this.retrieveBusSchedules(event.target.value, null);
     }
 
     handleHobokenChange(event) {
         this.setState({busStopHoboken: event.target.value});
-        this.retrieveBusSchedules();        
+        localStorage.setItem('hobokenBusStop', JSON.stringify(event.target.value));
+        this.retrieveBusSchedules(null, event.target.value);        
     }
 
     geolocate() {
