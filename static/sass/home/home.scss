@@ -1,0 +1,64 @@
+@import "../variables.scss";
+@import "../utilities.scss";
+
+.jumbotron-hero {
+    position: relative;
+    background-image: url('/static/img/hoboken_1.jpg');
+    width: 100%;
+    height: 260px;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: 0;
+}
+
+.weatherForecast-container {
+    margin-top: 30px;
+    top: 40px;
+    display: flex;
+    overflow: scroll;
+}
+
+.hourlyForecast {
+    position: relative;
+    background-color: $white01;
+    opacity: 0.9;
+    min-width: 115px;
+    min-height: 175px;
+    padding: 10px;
+    margin: 0 15px;
+}
+
+.hourlyForecast-time {
+    position: absolute;
+    font-size: 18px;
+}
+
+.hourlyForecast-icon {
+    @extend .center;
+    margin-top: 10px;
+}
+
+.hourlyForecast-condition {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 5px;
+}
+
+.busSchedule-container {
+    text-align: center;
+
+    & > ul {
+        list-style: none;
+        -webkit-padding-start: 0px;
+    }
+}
+
+.busSchedule {
+    & > span {
+        padding: 0px 5px;
+    }
+
+    &:nth-child(odd) {
+        background-color: $primary-color02;
+    }
+}

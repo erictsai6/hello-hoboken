@@ -1,0 +1,14 @@
+@import "variables.scss";
+
+.center {
+    text-align: center;
+}
+
+.active {
+    background-color: darken($primary-color02, 20%);
+}
+
+.card-label {
+    font-size: 12px;
+    color: $grey01;
+}

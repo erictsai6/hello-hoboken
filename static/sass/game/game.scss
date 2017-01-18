@@ -1,0 +1,130 @@
+@import "../variables.scss";
+
+$color-cell-0: #CEC0B1;
+$color-cell-2: #EEE4DA;
+$color-cell-4: #EDE0C8;
+$color-cell-8: #F2B179;
+$color-cell-16: #F59563;
+$color-cell-32: #F67C5F;
+$color-cell-64: #F65F3C;
+$color-cell-128: #F0D26A;
+$color-cell-256: #F0CF56;
+$color-cell-512: #F1CB41;
+$color-cell-1024: #EDC53F;
+$color-cell-2048: #F2C500;
+
+.board {
+    height: 340px;
+    width: 340px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cell {
+    background-color: blue;
+    width: 75px;
+    height: 75px;
+    margin: 4px;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 20px;
+
+    &.empty {
+        background-color: $color-cell-0;  
+    }
+
+    &.two {
+        background-color: $color-cell-2;
+    }
+
+    &.four {
+        background-color: $color-cell-4;
+    }
+
+    &.eight {
+        background-color: $color-cell-8;
+    }
+
+    &.sixteen {
+        background-color: $color-cell-16;
+    }
+
+    &.thirtytwo {
+        background-color: $color-cell-32;
+    }
+
+    &.sixtyfour {
+        background-color: $color-cell-64;
+    }
+
+    &.onetwentyeight {
+        background-color: $color-cell-128;
+    }
+
+    &.twofiftysix {
+        background-color: $color-cell-256;
+    }
+
+    &.fivetwelve {
+        background-color: $color-cell-512;
+    }
+
+    &.tentwentyfour {
+        background-color: $color-cell-1024;
+    }
+
+    &.twentyfortyeight {
+        background-color: $color-cell-2048;
+    }
+}
+
+.cell {
+    &.left {
+        animation-name: left;
+        animation-duration: 0.5s;
+    }
+    &.up {
+        animation-name: up;
+        animation-duration: 0.5s;
+    }
+    &.down {
+        animation-name: down;
+        animation-duration: 0.5s;
+    }
+    &.right {
+        animation-name: right;
+        animation-duration: 0.5s;
+    }
+}
+
+@keyframes left {
+    0%   {margin-left:0px;}
+    25%   {margin-left:-18px;}
+    50%   {margin-left:-36px;}
+    75%   {margin-left:-54px;}
+    100%   {margin-left:-75px;}
+}
+
+@keyframes up {
+    0%   {margin-up:0px;}
+    25%   {margin-up:-18px;}
+    50%   {margin-up:-36px;}
+    75%   {margin-up:-54px;}
+    100%   {margin-up:-75px;}
+}
+
+@keyframes right {
+    0%   {margin-right:0px;}
+    25%   {margin-right:-18px;}
+    50%   {margin-right:-36px;}
+    75%   {margin-right:-54px;}
+    100%   {margin-right:-75px;}
+}
+
+@keyframes down {
+    0%   {margin-down:0px;}
+    25%   {margin-down:-18px;}
+    50%   {margin-down:-36px;}
+    75%   {margin-down:-54px;}
+    100%   {margin-down:-75px;}
+}
