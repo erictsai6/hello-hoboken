@@ -1,35 +1,39 @@
 import { connect } from 'react-redux'
-import { toggleTodo } from '../actions'
-import TodoList from '../components/TodoList'
+import { updateNyBus, updateHobokenBus, fetchBusStops, fetchBusSchedules } from '../actions'
+import BusSchedules from '../pages/home/bus-schedules.jsx'
 
-const getVisibleTodos = (todos, filter) => {
-  switch (filter) {
-    case 'SHOW_ALL':
-      return todos
-    case 'SHOW_COMPLETED':
-      return todos.filter(t => t.completed)
-    case 'SHOW_ACTIVE':
-      return todos.filter(t => !t.completed)
-  }
-}
 
 const mapStateToProps = (state) => {
   return {
-    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+    busStopNy: state.busStopNy,
+    busStopHoboken: state.busStopHoboken,
+    busStopsNy: state.busStopsNy,
+    busStopsHoboken: state.busStopsHoboken,
+    busSchedulesNy: state.busSchedulesNy,
+    busSchedulesHoboken: state.busSchedulesHoboken
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onTodoClick: (id) => {
-      dispatch(toggleTodo(id))
+    updateNyBus: (stopId) => {
+      dispatch(updateNyBus(stopId));
+    },
+    updateHobokenBus: (stopId) => {
+      dispatch(updateHobokenBus(stopId));
+    },
+    fetchBusStops: () => {
+      dispatch(fetchBusStops());
+    },
+    fetchBusSchedules: (busStopNy, busStopHoboken) => {
+      dispatch(fetchBusSchedules(busStopNy, busStopHoboken));
     }
   }
 }
 
-const VisibleTodoList = connect(
+const BusSchedulesList = connect(
   mapStateToProps,
   mapDispatchToProps
-)(TodoList)
+)(BusSchedules)
 
-export default VisibleTodoList
+export default BusSchedulesList

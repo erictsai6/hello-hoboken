@@ -57,6 +57,7 @@ gulp.task('ci', ['copy']);
 gulp.task('watch', function () {
     gulp.watch('static/sass/**/*.scss', ['sass']);
     gulp.watch('static/jsx/**/*.jsx', ['build']);
+    gulp.watch('static/jsx/**/*.js', ['build']);
 });
 
 

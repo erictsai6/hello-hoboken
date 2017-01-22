@@ -4,12 +4,21 @@ import Home from './pages/home/home.jsx';
 import About from './pages/about/about.jsx';
 import Game from './pages/game/game.jsx';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
-import { Router, Route, IndexRoute, Link, IndexRedirect, hashHistory, History } from 'react-router'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import rootReducer from './reducers'
+import { Router, Route, IndexRoute, Link, IndexRedirect, hashHistory, History } from 'react-router';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
+import rootReducer from './reducers';
 
-const store = createStore(rootReducer);
+const loggerMiddleware = createLogger()
+
+const store = createStore(
+  rootReducer, 
+  applyMiddleware(
+    thunkMiddleware, // lets us dispatch() functions
+    loggerMiddleware // neat middleware that logs actions
+  ));
 
 const App = React.createClass({
 

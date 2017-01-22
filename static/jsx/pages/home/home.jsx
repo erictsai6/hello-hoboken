@@ -1,7 +1,7 @@
 import React from 'react';
 
 import WeatherForecasts from './weather-forecasts.jsx';
-import BusSchedules from './bus-schedules.jsx';
+import BusSchedulesList from '../../containers/bus-schedules.container.jsx';
 
 class Home extends React.Component {
 
@@ -17,7 +17,7 @@ class Home extends React.Component {
     render() {
         return (<div className="row">
                     <WeatherForecasts></WeatherForecasts>
-                    <BusSchedules></BusSchedules>
+                    <BusSchedulesList></BusSchedulesList>
                 </div>);
     }
 
