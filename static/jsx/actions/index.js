@@ -53,7 +53,7 @@ export function receiveBusStops(data) {
   }
 }
 
-export function fetchBusStops(dispatch) {
+export function fetchBusStops() {
   return function(dispatch) {
     return $.getJSON('/api/v1/bus_stops')       
       .then(data => {

@@ -1,6 +1,10 @@
-language: python
+language: 
+- python
+- node_js
 python:
 - '2.7'
+node_js:
+- '6'
 services:
 - docker
 env:

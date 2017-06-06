@@ -9,7 +9,9 @@ class BusSchedules extends React.Component {
     constructor() {
         super();
 
-        this.geolocate = this.geolocate.bind(this);        
+        this.geolocate = this.geolocate.bind(this);    
+        this.handleNyChange = this.handleNyChange.bind(this);        
+        this.handleHobokenChange = this.handleHobokenChange.bind(this);        
     }
 
     render() {
@@ -73,12 +75,13 @@ class BusSchedules extends React.Component {
 
     handleNyChange(event) {
         this.props.updateNyBus(event.target.value);
-        this.props.fetchBusSchedules(this.props.busStopNy, this.props.busStopHoboken);
+        console.log(event.target.value);
+        this.props.fetchBusSchedules(event.target.value, this.props.busStopHoboken);
     }
 
     handleHobokenChange(event) {
         this.props.updateHobokenBus(event.target.value);
-        this.props.fetchBusSchedules(this.props.busStopNy, this.props.busStopHoboken);
+        this.props.fetchBusSchedules(this.props.busStopNy, event.target.value);
     }
 
     geolocate() {

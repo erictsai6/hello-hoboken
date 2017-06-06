@@ -1,7 +1,7 @@
 import React from 'react';
 
 import WeatherForecasts from './weather-forecasts.jsx';
-import BusSchedulesList from '../../containers/bus-schedules.container.jsx';
+import BusSchedulesList from './bus-schedules.container.jsx';
 
 class Home extends React.Component {
 
