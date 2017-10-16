@@ -5,10 +5,14 @@
 }
 
 .active {
-    background-color: darken($primary-color02, 20%);
+    background-color: darken($bronze, 5%);
 }
 
 .card-label {
     font-size: 12px;
     color: $grey01;
+}
+
+.btn {
+    width: 100%;
 }

@@ -1,4 +1,4 @@
-language: 
+language:
 - python
 - node_js
 python:
@@ -9,14 +9,11 @@ services:
 - docker
 env:
   global:
-  - DOCKER_VERSION="1.9.1-0~trusty"
   - secure: PBbBtULBJsMF/ZFEF7OfoS+HwjyE9WHO9qRVko70H54H5UAfNRwIfA4/5xQw7QR/+WGWAoGM+BfA0Sf6HYM1vEYTOFaKhx2Ynq81WgtuFfY6KiCzrCyCNMssh/JV61qZFXzNNfcCdv9AXSsmkGIc1aAiQXBRrIyPRpmZt6sbJ1tOfgtE8G0WWEGNx2vQd7T/shL+LuS84y7++1menrDFTfPso7YACFbO4rNM4Xu+UHjpP2AmVzCqEMWX9jsldTqzk3nHzIU8/iPSTdA+JkaOacyqij78IN1HZYpiwdlkZA+d135ovjMUUZovxDFlqVVT6NCClbbyKqn5HX+sW0NNbykb2bWRInkeQyNB6+U8xO1PmT9bHo5I7DI9QsLTyyAnqmWDKpUYAIRU0o3PY4M9FRAQvjqotJ+dPQIwus1kXkRmqkf/qs/DiN8hbmdogYBBdFp3J2iU/6H/OcqLu3jJcIq+9dn9UwVVtkKRRu7oNtVixZHXi5jgApw11IuJXA7M7ALYv5j3qYTc/NFm3T+0YJNN6yyO9lnqbhgXT9nhNi1kqwZPXBCh7HDwIGvhHg8Zfv8Nj2Xnwoqu0yrCdiyClYUxU3vMnV+fDZUtZPakDgb64CnPIt0AI3HxHWjtV/CLAW2lguKHOAIsKHN8pWfPtJTfqpzkDDExCZFcZ+VqESw=
   - secure: WQcwqixCRXJfEzufu74nZK3IpasBmp990LflKMzpWr1iSc2QBm9BfB7XQTd5GQRuafCksRE+xweSnPCmpgLgSLIpiT8j7g2t9ux12fZE4cN0mkXGZO79hMrTAufa7TPuJWRyguD5WYvm/4vU7i+gKffZdlFwuov8bYJLLKeU9kMND8haF4+dYIirjwPZ/88/u7b5LD9jEJVek8Aa2ecPmqmgLTKFhquOAzKvzQO2YdJ0zimdwErHsKiYRgJ+iwVsnNXZkvBVro/DIKilbaDoeqjW6dNIn1IteaAkcOSg74BgGgGbmSNfRpEx3fbqv5Hjj8q31OVx4fQOdp9IdBxnlOC30iWibHAFVK5qQadYvWXn3XDY7QU0cxV9ZNjDX+VHAg1uAOqwKzGAR2NodANPSSB1a6tOg1rWHQh8hMDbMkHm1tlmT/OS/BYPv0/U1qIWnK+d+cF1i5EA82w6LbWJdX0p1NpnHcjmMEwFHGtvyQyQJU4t+GHn1p6ampPKx/KJpvJGZfbakJPenPVAaEvsS5Q6Q92eiD3urD4TviLDVHiJXobYwm8/uF7SQDm+4TJ4iCpmvGgyHKkfhoHw+xEtpXU5Po+1Lza0p1CrQilR76obeyMw7t7Myn73eAHMvJ0e4KZqIHZEK/cHOp6Nt+avB2Otqkg0OH0s1uSWGHTpAv8=
   - secure: VKy27NQj62UocfeOxf3VZL03MHskjDn37M88gjyslQItVqoKovDDtv05O6dM77XGbzFpAv3Rs34tPZFYENe35z1M4byBza2zW91XihzZt3wUkaOXFr2zP2fQw5/PX4TyFAP+ESGXqzFxuRM/bKvOFRyxO2PVL/t9vqxRyqc+V6kOTiPJLt9Dqlai+4pyvwAAc4wqeuHtLpr5VmmuQLl67G8ksnW7tFU4wz5fnRSjLHugp4cAP54DGUSa3/kVCwvXXe/vtWldL85g2rlJRyGVKl3PM5sdhxOLLRpQvWqgWpw9NLa4NDhw4yY2WIXN1IjAPJL77bmLDFautsb29vtYgJjr0ct7hwp76UMDQcsM7UtcGvbO23tDNf+Ew+KkdAmlFwfGl0K8AHvU9oeo7JlfG/d0kLMW2z3y6ZU/0J93/WARwSisB1Ij2ELxY7+qktGQBXy5I5tBynE8+Sg/CYuRmpiWo6wgcQAHiUuyRyhKUum41io3xBUMdGZnDl6Ck4Ui36+Y01k9MXHlKAFV2HBBxnTd3pFH2N10S5UmFzxTEwu5dlz2PGAKLE/zBELxyXaL83ZzuX3ctPlA8mXDTzv1JXBPeqV1q1DDqIC4CNEORwAxuAzbYv9zMZJXVMCq6+N38H/SSkc8oGqRK6KktIUQZmCKnYEG2Vl0P1FPiVmfoEU=
 before_install:
   - sudo apt-get update
-  - sudo apt-get remove docker-engine -yq
-  - sudo apt-get install docker-engine=$DOCKER_VERSION -yq --no-install-suggests --no-install-recommends --force-yes -o Dpkg::Options::="--force-confnew"
 install: pip install -r requirements.txt
 before_script:
 - npm install -g gulp
@@ -25,12 +22,11 @@ before_script:
 script:
 - python tester.py
 - gulp ci
-after_success:
-- docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-- export REPO=erictsai6/hello-hoboken
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
   ; fi`
-- docker build -f Dockerfile -t $REPO:$COMMIT .
-- docker tag $REPO:$COMMIT $REPO:$TAG
-- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-- docker push $REPO
+- docker build -f Dockerfile -t $DOCKER_USER/hello-hoboken:$TRAVIS_COMMIT .
+after_success:
+- docker tag $DOCKER_USER/hello-hoboken:$TRAVIS_COMMIT $DOCKER_USER/hello-hoboken:$TAG
+- docker tag $DOCKER_USER/hello-hoboken:$TRAVIS_COMMIT $DOCKER_USER/hello-hoboken:travis-$TRAVIS_BUILD_NUMBER
+- docker push $DOCKER_USER/hello-hoboken

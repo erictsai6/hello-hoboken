@@ -1,11 +1,16 @@
 import { connect } from 'react-redux'
-import { updateNyBus, updateHobokenBus, fetchBusStops, fetchBusSchedules } from '../../actions'
+import { updateNyBus,
+  updateHobokenBus,
+  fetchBusStops,
+  fetchBusSchedules,
+  setIsGeolocating } from '../../actions'
 
 import BusSchedules from './bus-schedules.jsx'
 
 
 const mapStateToProps = (state) => {
   return {
+    isGeolocating: state.isGeolocating,
     busStopNy: state.busStopNy,
     busStopHoboken: state.busStopHoboken,
     busStopsNy: state.busStopsNy,
@@ -28,6 +33,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchBusSchedules: (busStopNy, busStopHoboken) => {
       dispatch(fetchBusSchedules(busStopNy, busStopHoboken));
+    },
+    setIsGeolocating: (flag) => {
+      dispatch(setIsGeolocating(flag));
     }
   }
 }

@@ -9,24 +9,25 @@ class BusSchedules extends React.Component {
     constructor() {
         super();
 
-        this.geolocate = this.geolocate.bind(this);    
-        this.handleNyChange = this.handleNyChange.bind(this);        
-        this.handleHobokenChange = this.handleHobokenChange.bind(this);        
+        this.geolocate = this.geolocate.bind(this);
+        this.handleNyChange = this.handleNyChange.bind(this);
+        this.handleHobokenChange = this.handleHobokenChange.bind(this);
     }
 
     render() {
         return  (<div>
                     <div className="col-xs-12 autogeolocate">
-                        <button className="btn btn-default" onClick={this.geolocate}>
-                            Geolocate
+                        <button className="btn btn-primary" onClick={this.geolocate}>
+                            {!this.props.isGeolocating ? 'Geolocate' : 'Geolocating...'}
                         </button>
                     </div>
+                    <div className="clearfix"></div>
                     <div className="col-sm-6 busSchedule-container">
                     <h3>To New York Port Authority</h3>
-                    <select value={this.props.busStopNy} onChange={this.handleNyChange}>
+                    <select className="form-control" value={this.props.busStopNy} onChange={this.handleNyChange}>
                     {
                         this.props.busStopsNy.map(item => {
-                            return (<option key={item.id} 
+                            return (<option key={item.id}
                                 value={item.id}>{item.name}</option>);
                         })
                     }
@@ -41,7 +42,7 @@ class BusSchedules extends React.Component {
                 </div>
                 <div className="col-sm-6 busSchedule-container">
                     <h3>To Hoboken Path</h3>
-                    <select value={this.props.busStopHoboken} onChange={this.handleHobokenChange}>
+                    <select className="form-control" value={this.props.busStopHoboken} onChange={this.handleHobokenChange}>
                     {
                         this.props.busStopsHoboken.map(item => {
                             return (<option key={item.id}
@@ -56,14 +57,14 @@ class BusSchedules extends React.Component {
                         })
                     }
                     </ul>
-                </div></div>);        
+                </div></div>);
     }
 
     // API call to
     componentDidMount() {
         this.props.fetchBusStops();
         this.props.fetchBusSchedules(this.props.busStopNy, this.props.busStopHoboken);
-                
+
         this.polling = setInterval(() => {
             this.props.fetchBusSchedules(this.props.busStopNy, this.props.busStopHoboken);
         }, 10000);
@@ -71,11 +72,10 @@ class BusSchedules extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.polling);
-    }    
+    }
 
     handleNyChange(event) {
         this.props.updateNyBus(event.target.value);
-        console.log(event.target.value);
         this.props.fetchBusSchedules(event.target.value, this.props.busStopHoboken);
     }
 
@@ -84,23 +84,29 @@ class BusSchedules extends React.Component {
         this.props.fetchBusSchedules(this.props.busStopNy, event.target.value);
     }
 
-    geolocate() {
+    geolocate(event) {
+        if (this.isGeolocating) {
+            return;
+        }
+
+        this.props.setIsGeolocating(true);
         navigator.geolocation.getCurrentPosition((position) => {
             // position.coords.latitude
             $.getJSON('/api/v1/bus_stops/nearby', {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
             }).then((bus_stop_maps) => {
-                this.setState({
-                    busStopNy: bus_stop_maps.ny_bus_stop.id,
-                    busStopHoboken: bus_stop_maps.hoboken_bus_stop.id,
-                });  
-                              
+                this.props.setIsGeolocating(false);
+                this.props.updateNyBus(bus_stop_maps.ny_bus_stop.id);
+                this.props.updateHobokenBus(bus_stop_maps.hoboken_bus_stop.id);
+                this.props.fetchBusSchedules(bus_stop_maps.ny_bus_stop.id, bus_stop_maps.hoboken_bus_stop.id);
+            }).catch(() => {
+                this.props.setIsGeolocating(false);
             });
         });
     }
 
-    
+
 }
 
 export default BusSchedules;

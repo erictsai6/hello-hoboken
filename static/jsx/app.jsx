@@ -14,10 +14,10 @@ import rootReducer from './reducers';
 const loggerMiddleware = createLogger()
 
 const store = createStore(
-  rootReducer, 
+  rootReducer,
   applyMiddleware(
     thunkMiddleware, // lets us dispatch() functions
-    loggerMiddleware // neat middleware that logs actions
+    // loggerMiddleware // neat middleware that logs actions
   ));
 
 const App = React.createClass({
@@ -27,7 +27,6 @@ const App = React.createClass({
       <div>
         <nav className="navigation">
           <Link className="navigation--link" activeClassName="active" to="/home">Home</Link>
-          <Link className="navigation--link" activeClassName="active" to="/game">Game</Link>
           <Link className="navigation--link" activeClassName="active" to="/about">About</Link>
         </nav>
         <div className="container--child">
@@ -44,8 +43,7 @@ ReactDOM.render(
           <Route path="/" component={App}>
               <IndexRedirect to="/home" />
               <Route path="home" component={Home} />
-              <Route path="game" component={Game} />
-              <Route path="about" component={About} />        
+              <Route path="about" component={About} />
           </Route>
       </Router>
     </Provider>,

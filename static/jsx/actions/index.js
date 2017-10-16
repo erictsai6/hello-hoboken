@@ -10,7 +10,7 @@ export const FETCH_BUS_SCHEDULES = 'FETCH_BUS_SCHEDULES';
 export const RECEIVE_BUS_SCHEDULES = 'RECEIVE_BUS_SCHEDULES';
 export const FETCH_BUS_STOPS = 'FETCH_BUS_STOPS';
 export const RECEIVE_BUS_STOPS = 'RECEIVE_BUS_STOPS';
-
+export const SET_IS_GEOLOCATING = 'SET_IS_GEOLOCATING';
 /*
  * other constants
  */
@@ -26,12 +26,12 @@ export function updateNyBus(stopId) {
 }
 
 export function updateHobokenBus(stopId) {
-  localStorage.setItem('hobokenBusStop', JSON.stringify(stopId));  
+  localStorage.setItem('hobokenBusStop', JSON.stringify(stopId));
   return { type: UPDATE_HOBOKEN_BUS, stopId }
 }
 
 export function receiveBusSchedules(data) {
-  return { type: RECEIVE_BUS_SCHEDULES, 
+  return { type: RECEIVE_BUS_SCHEDULES,
     data }
 }
 
@@ -42,8 +42,8 @@ export function fetchBusSchedules(busStopNy, busStopHoboken) {
         hoboken_bus_stop: busStopHoboken
       })
       .then(data => {
-        dispatch(receiveBusSchedules(data));          
-      }); 
+        dispatch(receiveBusSchedules(data));
+      });
   }
 }
 
@@ -55,9 +55,16 @@ export function receiveBusStops(data) {
 
 export function fetchBusStops() {
   return function(dispatch) {
-    return $.getJSON('/api/v1/bus_stops')       
+    return $.getJSON('/api/v1/bus_stops')
       .then(data => {
-        dispatch(receiveBusStops(data));           
-      }); 
-  }  
+        dispatch(receiveBusStops(data));
+      });
+  }
+}
+
+export function setIsGeolocating(data) {
+  return {
+    type: SET_IS_GEOLOCATING,
+    data
+  }
 }
