@@ -17,7 +17,8 @@ class BusSchedules extends React.Component {
     render() {
         return  (<div>
                     <div className="col-xs-12 autogeolocate">
-                        <button className="btn btn-primary" onClick={this.geolocate}>
+                        <button className="btn btn-primary" onClick={this.geolocate}
+                            disabled={this.props.isGeolocating}>
                             {!this.props.isGeolocating ? 'Geolocate' : 'Geolocating...'}
                         </button>
                     </div>
