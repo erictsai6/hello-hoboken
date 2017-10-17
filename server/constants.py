@@ -16,11 +16,11 @@ wu_city = 'Hoboken'
 alexa_app_id = os.environ['ALEXA_APP_ID']
 
 stop_id_map_ny = [
-    {  
+    {
         'id': 20496,
         'name': 'Hoboken Terminal',
         'direction': direction_ny,
-        'show_all': hide_other_busses,
+        'show_all': show_all_busses,
         'latitude': 40.735704,
         'longitude': -74.029009
     },
@@ -28,7 +28,7 @@ stop_id_map_ny = [
         'id': 20508,
         'name': 'Washington & 1st',
         'direction': direction_ny,
-        'show_all': hide_other_busses,
+        'show_all': show_all_busses,
         'latitude': 40.737670,
         'longitude': -74.030761
     },
@@ -36,7 +36,7 @@ stop_id_map_ny = [
         'id': 20509,
         'name': 'Washington & 3rd',
         'direction': direction_ny,
-        'show_all': hide_other_busses,
+        'show_all': show_all_busses,
         'latitude': 40.740346,
         'longitude': -74.029934
     },
@@ -44,7 +44,7 @@ stop_id_map_ny = [
         'id': 20510,
         'name': 'Washington & 5th',
         'direction': direction_ny,
-        'show_all': hide_other_busses,
+        'show_all': show_all_busses,
         'latitude': 40.742374,
         'longitude': -74.029308
     },
@@ -52,7 +52,7 @@ stop_id_map_ny = [
         'id': 20511,
         'name': 'Washington & 7th',
         'direction': direction_ny,
-        'show_all': hide_other_busses,
+        'show_all': show_all_busses,
         'latitude': 40.744964,
         'longitude': -74.028522
     },
@@ -60,7 +60,7 @@ stop_id_map_ny = [
         'id': 20512,
         'name': 'Washington & 9th',
         'direction': direction_ny,
-        'show_all': hide_other_busses,
+        'show_all': show_all_busses,
         'latitude': 40.747576,
         'longitude': -74.027773
     },
@@ -68,7 +68,7 @@ stop_id_map_ny = [
         'id': 20513,
         'name': 'Washington & 11th',
         'direction': direction_ny,
-        'show_all': hide_other_busses,
+        'show_all': show_all_busses,
         'latitude': 40.750116,
         'longitude': -74.026943
     },
@@ -76,7 +76,7 @@ stop_id_map_ny = [
         'id': 20514,
         'name': 'Washington & 13th',
         'direction': direction_ny,
-        'show_all': hide_other_busses,
+        'show_all': show_all_busses,
         'latitude': 40.752496,
         'longitude': -74.026192
     },
@@ -84,7 +84,7 @@ stop_id_map_ny = [
         'id': 20490,
         'name': '14th & Bloomfield',
         'direction': direction_ny,
-        'show_all': hide_other_busses,
+        'show_all': show_all_busses,
         'latitude': 40.753489,
         'longitude': -74.027306
     },
@@ -92,7 +92,7 @@ stop_id_map_ny = [
         'id': 32084,
         'name': 'Willow & 15th',
         'direction': direction_ny,
-        'show_all': hide_other_busses,
+        'show_all': show_all_busses,
         'latitude': 40.754709,
         'longitude': -74.029314
     },
@@ -100,7 +100,7 @@ stop_id_map_ny = [
         'id': 21853,
         'name': 'Willow & 19th',
         'direction': direction_ny,
-        'show_all': hide_other_busses,
+        'show_all': show_all_busses,
         'latitude': 40.759785,
         'longitude': -74.027727
     }
