@@ -37,9 +37,9 @@ def api_bus_schedules():
     all_bus_schedules = bus_schedules.to_dict()
 
     ny_bus_schedules = all_bus_schedules['ny_bus_schedules'][ny_bus_stop] \
-        if ny_bus_stop in all_bus_schedules['ny_bus_schedules'] else []                    
+        if ny_bus_stop in all_bus_schedules['ny_bus_schedules'] else {}
     hoboken_bus_schedules = all_bus_schedules['hoboken_bus_schedules'][hoboken_bus_stop] \
-        if hoboken_bus_stop in all_bus_schedules['hoboken_bus_schedules'] else []
+        if hoboken_bus_stop in all_bus_schedules['hoboken_bus_schedules'] else {}
 
     return jsonify({
         'ny_bus_schedules': ny_bus_schedules,
@@ -59,25 +59,25 @@ def api_bus_stops_nearby():
     longitude = float(request.args.get('longitude'))
 
     nearest_distance = 10000
-    nearest_ny_bus_stop = None    
+    nearest_ny_bus_stop = None
     nearest_hoboken_bus_stop = None
 
     # Iterate through NY directions stops
     for ny_bus_stop in c.stop_id_map_ny:
-        distance_from = Geo.distance_from(latitude, longitude,  
+        distance_from = Geo.distance_from(latitude, longitude,
             ny_bus_stop['latitude'], ny_bus_stop['longitude'])
         if distance_from < nearest_distance:
             nearest_distance = distance_from
-            nearest_ny_bus_stop = ny_bus_stop                    
+            nearest_ny_bus_stop = ny_bus_stop
 
     nearest_distance = 10000
     # Iterate through Hoboken direction stops
     for hoboken_bus_stop in c.stop_id_map_hoboken:
-        distance_from = Geo.distance_from(latitude, longitude,  
+        distance_from = Geo.distance_from(latitude, longitude,
             hoboken_bus_stop['latitude'], hoboken_bus_stop['longitude'])
         if distance_from < nearest_distance:
             nearest_distance = distance_from
-            nearest_hoboken_bus_stop = hoboken_bus_stop 
+            nearest_hoboken_bus_stop = hoboken_bus_stop
 
     return jsonify({
         'ny_bus_stop': nearest_ny_bus_stop,
@@ -91,7 +91,7 @@ def api_weather_forecast():
 
 @app.route('/api/v1/alexa', methods=['POST'])
 def alexa():
-    body = request.get_json() 
+    body = request.get_json()
 
     if body['session']['application']['applicationId'] != c.alexa_app_id:
         return '', 403
@@ -99,7 +99,7 @@ def alexa():
     if body['request']['type'] != 'IntentRequest':
         return '', 422
 
-    # default should be new york    
+    # default should be new york
     direction = 'new york'
     direction_key = 'ny_bus_schedules'
     bus_stop = '20514'
@@ -108,7 +108,7 @@ def alexa():
         intent['value'].lower() == 'hoboken':
         direction = 'hoboken'
         direction_key = 'hoboken_bus_schedules'
-        bus_stop = '20515' 
+        bus_stop = '20515'
 
     global bus_schedules
 
@@ -123,15 +123,15 @@ def alexa():
         if len(to_bus_schedules) > 1:
             speak_text += ' The next busses are: '
         for i in range(1, len(to_bus_schedules)):
-            speak_text += str(to_bus_schedules[i]['time_remaining']) + ' minutes away. ' 
+            speak_text += str(to_bus_schedules[i]['time_remaining']) + ' minutes away. '
 
     return jsonify({
-        'version': body['version'],        
+        'version': body['version'],
         'response': {
             'outputSpeech': {
                 'type': 'PlainText',
                 'text': speak_text
-            }                       
+            }
         }
     })
 
@@ -173,5 +173,5 @@ def main():
 main()
 
 if __name__ == '__main__':
-    print 'Started in {} mode'.format(environment) 
+    print 'Started in {} mode'.format(environment)
     app.run(host='0.0.0.0')

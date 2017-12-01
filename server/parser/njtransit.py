@@ -1,6 +1,7 @@
 from lxml import html
 import requests
 import re
+import datetime
 from server.models.bus_schedule import BusSchedule
 
 class NJTransitParser:
@@ -40,7 +41,7 @@ class NJTransitParser:
         else:
             print 'Error - NJ Transit failed to return valid status code.  Returned status code:', page.status_code
 
-        return bus_schedules
+        return (bus_schedules, datetime.datetime.now())
 
 
     def extract_route_num(self, input):

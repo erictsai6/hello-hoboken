@@ -14,10 +14,12 @@ class NJTransitWorker(threading.Thread):
         while not self.kill_received:
             try:
                 for parser in self.njtransit_ny_parsers:
-                    self.bus_schedules.set_bus_schedules_ny(parser.stop_id, parser.get_bus_schedules())
+                    (bus_schedules, dt) = parser.get_bus_schedules()
+                    self.bus_schedules.set_bus_schedules_ny(parser.stop_id, bus_schedules, dt)
 
                 for parser in self.njtransit_hoboken_parsers:
-                    self.bus_schedules.set_bus_schedules_hoboken(parser.stop_id, parser.get_bus_schedules())
+                    (bus_schedules, dt) = parser.get_bus_schedules()
+                    self.bus_schedules.set_bus_schedules_hoboken(parser.stop_id, bus_schedules, dt)
 
                 time.sleep(15)
             except Exception, e:

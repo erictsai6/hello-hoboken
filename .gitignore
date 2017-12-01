@@ -20,3 +20,5 @@ env.conf
 *.key
 *.pem
 *.cnf
+
+.vscode
