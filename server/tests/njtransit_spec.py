@@ -35,7 +35,7 @@ class MyTest(unittest.TestCase):
 
     def test_get_bus_schedules_regular(self):
         with HTTMock(regular_mock):
-            r = self.parser.get_bus_schedules()
+            r = self.parser.get_bus_schedules()[0]
 
             self.assertEquals(len(r), 4)
 
@@ -54,7 +54,7 @@ class MyTest(unittest.TestCase):
 
     def test_get_bus_schedules_less_than_1_min(self):
         with HTTMock(less_than_1_mock):
-            r = self.parser.get_bus_schedules()
+            r = self.parser.get_bus_schedules()[0]
 
             self.assertEquals(len(r), 3)
 

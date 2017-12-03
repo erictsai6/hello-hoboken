@@ -15,6 +15,8 @@ const mapStateToProps = (state) => {
     busStopHoboken: state.busStopHoboken,
     busStopsNy: state.busStopsNy,
     busStopsHoboken: state.busStopsHoboken,
+    lastUpdatedNy: state.lastUpdatedNy,
+    lastUpdatedHoboken: state.lastUpdatedHoboken,
     busSchedulesNy: state.busSchedulesNy,
     busSchedulesHoboken: state.busSchedulesHoboken
   }

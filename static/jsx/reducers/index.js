@@ -14,8 +14,9 @@ let hobokenBusStop = localStorage.getItem('hobokenBusStop') ?
     JSON.parse(localStorage.getItem('hobokenBusStop')) : DEFAULT_HOBOKEN_BUS_STOP;
 
 const initialState = {
-    lastUpdated: null,
     isGeolocating: false,
+    lastUpdatedNy: null,
+    lastUpdatedHoboken: null,
     busStopNy: nyBusStop,
     busStopHoboken: hobokenBusStop,
     busStopsNy: [],
@@ -40,10 +41,12 @@ function rootReducer(state = initialState, action) {
                 busStopsHoboken: action.data.hoboken_bus_stops
             });
         case RECEIVE_BUS_SCHEDULES:
+            console.log(action.data);
             return Object.assign({}, state, {
-                lastUpdated: new Date(),
-                busSchedulesNy: action.data.ny_bus_schedules,
-                busSchedulesHoboken: action.data.hoboken_bus_schedules
+                lastUpdatedNy: new Date(action.data.ny_bus_schedules.last_updated),
+                lastUpdatedHoboken: new Date(action.data.hoboken_bus_schedules.last_updated),
+                busSchedulesNy: action.data.ny_bus_schedules.bus_schedules,
+                busSchedulesHoboken: action.data.hoboken_bus_schedules.bus_schedules
             });
         case SET_IS_GEOLOCATING:
             return Object.assign({}, state, {

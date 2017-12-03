@@ -33,6 +33,13 @@ class BusSchedules extends React.Component {
                         })
                     }
                     </select>
+                    {
+                        function(lastUpdated) {
+                            if (lastUpdated) {
+                                return (<div>{lastUpdated.toString()}</div>);
+                            }
+                        }(this.props.lastUpdatedNy)
+                    }
                     <ul>
                     {
                         this.props.busSchedulesNy.map(item => {
@@ -51,6 +58,13 @@ class BusSchedules extends React.Component {
                         })
                     }
                     </select>
+                    {
+                        function(lastUpdated) {
+                            if (lastUpdated) {
+                                return (<div>{lastUpdated.toString()}</div>);
+                            }
+                        }(this.props.lastUpdatedHoboken)
+                    }
                     <ul>
                     {
                         this.props.busSchedulesHoboken.map(item => {
