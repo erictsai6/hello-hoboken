@@ -41,7 +41,6 @@ function rootReducer(state = initialState, action) {
                 busStopsHoboken: action.data.hoboken_bus_stops
             });
         case RECEIVE_BUS_SCHEDULES:
-            console.log(action.data);
             return Object.assign({}, state, {
                 lastUpdatedNy: new Date(action.data.ny_bus_schedules.last_updated),
                 lastUpdatedHoboken: new Date(action.data.hoboken_bus_schedules.last_updated),

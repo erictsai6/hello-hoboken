@@ -3,19 +3,25 @@ import React from 'react';
 class BusSchedule extends React.Component {
 
     render() {
-
-        if (this.props.item.time_remaining === undefined || this.props.item.time_remaining === null) {
-
-            return (<li className="busSchedule">
-                <span className="busSchedule-id">Bus #{this.props.item.id}</span>
-                <span className="busSchedule-route">Route {this.props.item.route_num}</span>
-                <span className="busSchedule-timeRemaining warningState">DELAYED</span>
-            </li>);
-        }
         return (<li className="busSchedule">
-                <span className="busSchedule-id">Bus #{this.props.item.id}</span>
                 <span className="busSchedule-route">Route {this.props.item.route_num}</span>
-                <span className="busSchedule-timeRemaining">{this.props.item.time_remaining} min</span>
+                <span className="busSchedule-id">Bus #{this.props.item.id}</span>
+                {
+                    function(timeRemaining) {
+                        if (timeRemaining === undefined || timeRemaining === null) {
+                            return (<span className="busSchedule-timeRemaining">
+                                    DELAYED
+                                </span>);
+                        }
+                        return (
+                            <span className={`busSchedule-timeRemaining
+                                ${(timeRemaining <= 10 ? ' warningState' : '')}`}>
+                                {timeRemaining} min
+                            </span>
+                        );
+
+                    }(this.props.item.time_remaining)
+                }
             </li>);
     }
 }

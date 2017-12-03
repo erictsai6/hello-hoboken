@@ -8,7 +8,7 @@ class EmbeddedTweets extends React.Component {
 
     render() {
 
-        return (<div id="embedded-twitter">
+        return (<div id="embedded-twitter" className="container">
                     <a className="twitter-timeline" href="https://twitter.com/PANYNJ_LT?ref_src=twsrc%5Etfw">Tweets by PANYNJ_LT</a>
                 </div>);
 

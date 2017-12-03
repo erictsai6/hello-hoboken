@@ -36,7 +36,7 @@ class BusSchedules extends React.Component {
                     {
                         function(lastUpdated) {
                             if (lastUpdated) {
-                                return (<div>{lastUpdated.toString()}</div>);
+                                return (<div className="italic busSchedule-lastUpdated">Last updated {lastUpdated.toLocaleTimeString()}</div>);
                             }
                         }(this.props.lastUpdatedNy)
                     }
@@ -61,7 +61,7 @@ class BusSchedules extends React.Component {
                     {
                         function(lastUpdated) {
                             if (lastUpdated) {
-                                return (<div>{lastUpdated.toString()}</div>);
+                                return (<div className="italic busSchedule-lastUpdated">Last updated {lastUpdated.toLocaleTimeString()}</div>);
                             }
                         }(this.props.lastUpdatedHoboken)
                     }
