@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './pages/home/home.jsx';
 import About from './pages/about/about.jsx';
-import Game from './pages/game/game.jsx';
+import Ar from './pages/ar/ar.jsx';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import { Router, Route, IndexRoute, Link, IndexRedirect, hashHistory, History } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
@@ -44,6 +44,7 @@ ReactDOM.render(
               <IndexRedirect to="/home" />
               <Route path="home" component={Home} />
               <Route path="about" component={About} />
+              <Route path="ar" component={Ar} />
           </Route>
       </Router>
     </Provider>,

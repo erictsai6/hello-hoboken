@@ -1,4 +1,8 @@
 {
+  "name": "hello-hoboken",
+  "version": "1.0.0",
+  "description": "Simple react application that scrapes njtransit website and displays it in a easy to read format",
+  "main": "gulpfile.js",
   "devDependencies": {
     "css-loader": "^0.23.1",
     "file-loader": "^0.9.0",
@@ -10,9 +14,16 @@
     "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.3.2",
     "gulp-shell": "^0.5.2",
+    "html-webpack-plugin": "^2.30.1",
+    "image-webpack-loader": "^3.4.2",
     "merge-stream": "^1.0.1",
+    "postcss-loader": "^2.0.9",
     "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7"
+    "stylelint": "^8.3.1",
+    "stylelint-webpack-plugin": "^0.9.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^3.10.0",
+    "webpack-merge": "^4.1.1"
   },
   "dependencies": {
     "babel-loader": "^6.2.4",
@@ -30,6 +41,20 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
     "redux-thunk": "^2.2.0",
-    "webpack": "^1.13.1"
-  }
+    "three": "^0.88.0"
+  },
+  "postcss": {},
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erictsai6/hello-hoboken.git"
+  },
+  "author": "Eric Tsai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erictsai6/hello-hoboken/issues"
+  },
+  "homepage": "https://github.com/erictsai6/hello-hoboken#readme"
 }

@@ -25,8 +25,12 @@ gulp.task('sass', function() {
         .pipe(gulp.dest('./static/css'));
 });
 
+gulp.task('build-dev', ['sass'], shell.task([
+    './node_modules/.bin/webpack -d --config=config/webpack.dev.js'
+]));
+
 gulp.task('build', ['sass'], shell.task([
-    './node_modules/.bin/webpack -d'
+    './node_modules/.bin/webpack -p --config=config/webpack.prod.js'
 ]));
 
 gulp.task('clean', function() {
@@ -56,13 +60,13 @@ gulp.task('ci', ['copy']);
 
 gulp.task('watch', function () {
     gulp.watch('static/sass/**/*.scss', ['sass']);
-    gulp.watch('static/jsx/**/*.jsx', ['build']);
-    gulp.watch('static/jsx/**/*.js', ['build']);
+    gulp.watch('static/jsx/**/*.jsx', ['build-dev']);
+    gulp.watch('static/jsx/**/*.js', ['build-dev']);
 });
 
 
 
-gulp.task('server:dev', ['reset-env', 'build'], shell.task([
+gulp.task('server:dev', ['reset-env', 'build-dev'], shell.task([
     'python tester.py',
     'python main.py'
 ]));
