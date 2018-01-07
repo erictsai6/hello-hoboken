@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from "jquery";
 import BusSchedule from './bus-schedule.jsx';
+import Loader from '../../../shared/loader/loader.jsx';
 
 let DEFAULT_NY_BUS_STOP = 20514;
 let DEFAULT_HOBOKEN_BUS_STOP = 20515;
@@ -16,7 +17,16 @@ class BusSchedules extends React.Component {
 
     render() {
         return  (<div>
-                    <div className="col-xs-12 autogeolocate">
+                    <div className="clearfix"></div>
+                    <div className="col-md-6 col-md-offset-3 padding-top">
+                        { (this.props.isGeolocating)
+                            ? <div className="loaderContainer">
+                                <div className="loader">
+                                    <Loader></Loader>
+                                </div>
+                            </div>
+                            : null
+                        }
                         <button className="btn btn-primary" onClick={this.geolocate}
                             disabled={this.props.isGeolocating}>
                             {!this.props.isGeolocating ? 'Geolocate' : 'Geolocating...'}
