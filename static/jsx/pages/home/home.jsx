@@ -1,7 +1,8 @@
 import React from 'react';
 
-import WeatherForecasts from './weather-forecasts.jsx';
-import BusSchedulesList from './bus-schedules.container.jsx';
+import WeatherForecasts from './weather-forecasts/weather-forecasts.jsx';
+import BusSchedulesList from './bus-schedules/bus-schedules.container.jsx';
+import MapDirections from './map-directions/map-directions.jsx';
 import EmbeddedTweets from './embedded-tweets.jsx';
 
 class Home extends React.Component {
@@ -19,6 +20,7 @@ class Home extends React.Component {
         return (<div className="row">
                     <WeatherForecasts></WeatherForecasts>
                     <BusSchedulesList></BusSchedulesList>
+                    <MapDirections></MapDirections>
                     <EmbeddedTweets></EmbeddedTweets>
                 </div>);
     }

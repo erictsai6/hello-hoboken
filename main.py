@@ -138,7 +138,7 @@ def alexa():
 @app.route('/')
 def index():
     global environment
-    return render_template('index.html', environment=environment)
+    return render_template('index.html', environment=environment, google_api_key=c.google_api_key)
 
 def main():
     print ' -- Initializing NJ Transit Parser Process -- '

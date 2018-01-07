@@ -11,6 +11,9 @@ export const RECEIVE_BUS_SCHEDULES = 'RECEIVE_BUS_SCHEDULES';
 export const FETCH_BUS_STOPS = 'FETCH_BUS_STOPS';
 export const RECEIVE_BUS_STOPS = 'RECEIVE_BUS_STOPS';
 export const SET_IS_GEOLOCATING = 'SET_IS_GEOLOCATING';
+export const SET_MAP_DIRECTION = 'SET_MAP_DIRECTION';
+export const RECEIVE_MAP_DIRECTION = 'RECEIVE_MAP_DIRECTION';
+
 /*
  * other constants
  */
@@ -65,6 +68,13 @@ export function fetchBusStops() {
 export function setIsGeolocating(data) {
   return {
     type: SET_IS_GEOLOCATING,
+    data
+  }
+}
+
+export function setMapDirection(data) {
+  return {
+    type: SET_MAP_DIRECTION,
     data
   }
 }

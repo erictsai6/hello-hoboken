@@ -9,6 +9,7 @@ hide_other_busses = 'off'
 direction_ny = 'New York'
 direction_hoboken = 'Hoboken/Jersey C'
 
+google_api_key = os.environ['GOOGLE_API_KEY']
 wu_api_key = os.environ['WU_API_KEY']
 wu_state = 'NJ'
 wu_city = 'Hoboken'

@@ -10,6 +10,11 @@
     <div id="container" class="container-fluid">
 
     </div>
+    <script>
+        window.googleApiKey = '{{google_api_key}}';
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{google_api_key}}">
+    </script>
     <script src="{{ url_for('static', filename='bundles/bundle.js')}}"></script>
 </body>
 </html>

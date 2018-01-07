@@ -2,7 +2,9 @@ import { UPDATE_NY_BUS,
     UPDATE_HOBOKEN_BUS,
     RECEIVE_BUS_SCHEDULES,
     RECEIVE_BUS_STOPS,
-    SET_IS_GEOLOCATING } from '../actions';
+    SET_IS_GEOLOCATING,
+    SET_MAP_DIRECTION,
+    RECEIVE_MAP_DIRECTION} from '../actions';
 import { combineReducers } from 'redux'
 
 const DEFAULT_NY_BUS_STOP = 20514;
@@ -22,7 +24,9 @@ const initialState = {
     busStopsNy: [],
     busStopsHoboken: [],
     busSchedulesNy: [],
-    busSchedulesHoboken: []
+    busSchedulesHoboken: [],
+
+    toMapDirection: 'newyork'
 };
 
 function rootReducer(state = initialState, action) {
@@ -50,6 +54,10 @@ function rootReducer(state = initialState, action) {
         case SET_IS_GEOLOCATING:
             return Object.assign({}, state, {
                 isGeolocating: action.data
+            });
+        case SET_MAP_DIRECTION:
+            return Object.assign({}, state, {
+                toMapDirection: action.data
             });
         default:
             return state;

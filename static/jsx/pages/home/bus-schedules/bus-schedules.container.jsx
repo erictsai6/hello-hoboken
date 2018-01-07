@@ -3,10 +3,9 @@ import { updateNyBus,
   updateHobokenBus,
   fetchBusStops,
   fetchBusSchedules,
-  setIsGeolocating } from '../../actions'
+  setIsGeolocating } from '../../../actions'
 
 import BusSchedules from './bus-schedules.jsx'
-
 
 const mapStateToProps = (state) => {
   return {
